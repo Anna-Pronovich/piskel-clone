@@ -1,0 +1,29 @@
+@import './canvas/canvas.css';
+@import './frames/frames.css';
+@import './tools/tools-bar.css';
+/* @import './preview/preview.css'; */
+
+body {
+  background: #343434;
+  font-family: 'Mali','	Comic Sans MS',  cursive, sans-serif;
+
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 60px;
+  font-weight: normal;
+  color: transparent;
+  text-transform: uppercase;
+  text-shadow: 0 0 1px #eee, 5px 5px 1px #00dcdc, -5px -2px 1px #ff3232;
+  animation: glitch 4s ease-in-out infinite alternate;
+}
+
+main {
+ display: flex;
+ flex-flow: row nowrap;
+}

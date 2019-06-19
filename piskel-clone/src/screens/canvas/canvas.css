@@ -1,0 +1,9 @@
+.canvas-container {
+  /* min-width: 70%; */
+  margin: 0 20px;
+}
+
+canvas {
+  background: #fff;
+  border: 1px solid #7B899B;
+}

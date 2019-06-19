@@ -1,0 +1,67 @@
+.conteiner-frames {
+  display: flex;
+  min-width: 150px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frame {
+  position: relative;
+  width: 110px;
+  height: 150px;
+  margin: 40px auto;
+  border: 3px solid #AAAEAF;
+}
+
+.active, .frame:hover{
+  border: 3px solid yellow;
+}
+
+.canvas-in-frame {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.number-frame,
+.tool-tip_delete,
+.tool-tip_copy {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+
+.number-frame {
+  top: 0;
+  left: 0;
+  color: #000000;
+  background-color: #AAAEAF;
+  text-align: center;
+}
+
+.frame.active .number-frame, .frame:hover .number-frame{
+  background-color: yellow;
+}
+
+.tool-tip_delete {
+  top: 0;
+  right: 0;
+  background-color: #AAAEAF;
+  background-image: url(../../assets/images/frame-recyclebin-white.png);
+}
+
+.tool-tip_copy {
+  bottom: 0;
+  right: 0;
+  background-color: #AAAEAF;
+  background-image: url(../../assets/images/frame-duplicate-white.png);
+}
+
+.btn-add-frame {
+  width: 150px;
+  margin: 10px auto;
+  border-radius: 6px;
+  border: 3px solid #AAAEAF;
+  font-size: 18px;
+  text-align: center;
+}

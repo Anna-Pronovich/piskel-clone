@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -25,33 +25,33 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: ['html-loader']
-    },
-    {
+        use: ['html-loader'],
+      },
+      {
         test: /\.(jpg|png)$/,
         use: [
-            {
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: 'img/',
-                    publicPath: 'img/'
-                }
-            }
-        ]
-    },
-    {
-      test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: [
-        'file-loader',
-      ],
-    }
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'img/',
+              publicPath: 'img/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-        template: 'src/index.html'
-    })
-]
+      template: 'src/index.html',
+    }),
+  ],
 };

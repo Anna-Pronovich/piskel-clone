@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Mali:400,600&display=swap" rel="stylesheet">
+
+  <!-- <link rel="stylesheet" href="./screens/index.css"> -->
+
   <title>Piskel Clone</title>
 </head>
+
 <body>
-  <h1>Hello</h1>
-  <div>
-      <img src="images/webpack-logo.png" alt="Webpack">
-  </div>
+
+  <header>
+    <h1>Piskel-Clone</h1>
+  </header>
+  <main>
+    <div class="wrapper-tools-palette">
+      <div class="tools-container">
+        <button class="tool_btn" id="tool-pen" title="pen"></button>
+        <button class="tool_btn" id="tool-paint-bucket" title="bucket"></button>
+        <button class="tool_btn" id="tool-color-picker" title="color-picker"></button>
+        <button class="tool_btn" id="tool-eraser" title="eraser"></button>
+        <button class="tool_btn" id="tool-rectangle" title="rectangle"></button>
+        <button class="tool_btn" id="tool-circle" title="circle"></button>
+      </div>
+      <div class="palette" id="palette">palette</div>
+    </div>
+
+    <div class="conteiner-frames">
+      <div id="conteiner-frames_list"></div>
+      <button class="btn-add-frame" id="btn-add-frame">Add new frames</button>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="canvas" width="700" height="700"></canvas>
+    </div>
+
+    <div class="preview">
+      <canvas id="canvas-preview"></canvas>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="24" value="1" class="slider" id="fpsRange">
+        <p>Value: <span id="fpsValue"></span></p>
+      </div>
+    </div>
+
+  </main>
+
 </body>
+
 </html>
