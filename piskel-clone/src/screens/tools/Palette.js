@@ -6,7 +6,7 @@ export default class Palette {
 
     const palette = document.getElementById('palette');
     const picker = new Color(palette);
-    picker.onChange = function (color) {
+    picker.onChange = (color) => {
       palette.style.background = color.rgbaString;
     };
   }

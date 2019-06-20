@@ -11,9 +11,10 @@ export default class ImageCanvas {
     this.pixelHeight = options.pixelHeight;
 
     this.canvas = document.getElementById('canvas');
+    this.context = this.canvas.getContext('2d');
     this.canvas.width = this.numberPixelsInWidth * this.pixelWidth;
     this.canvas.height = this.numberPixelsInHeight * this.pixelHeight;
-    this.context = this.canvas.getContext('2d');
+
     this.context.fillStyle = '#FFFFFF';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -27,7 +28,6 @@ export default class ImageCanvas {
     for (let y = 1; y <= this.numberPixelsInHeight; y += 1) {
       for (let x = 1; x <= this.numberPixelsInWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
-        // console.log ('currentPixel x ' + currentPixel.x, 'currentPixel y ' + currentPixel.y);
 
         currentPixel.mouseOver = false;
 
@@ -49,25 +49,24 @@ export default class ImageCanvas {
         this.pixelStorage.setPixel(x, y, currentPixel);
       }
     }
-
   }
 
-  render(context) {
-    context.putImageData(this.canvasGrid, 0, 0);
+  render() {
+    this.context.putImageData(this.canvasGrid, 0, 0);
 
     for (let y = 1; y <= this.numberPixelsInHeight; y += 1) {
       for (let x = 1; x <= this.numberPixelsInWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
 
         if (currentPixel.on) {
-          context.fillStyle = currentPixel.color;
-          context.fillRect(currentPixel.x, currentPixel.y,
+          this.context.fillStyle = currentPixel.color;
+          this.context.fillRect(currentPixel.x, currentPixel.y,
             this.pixelWidth, this.pixelHeight);
         }
 
         if (currentPixel.mouseOver) {
-          context.fillStyle = 'rgba(0,0,0,0.2)';
-          context.fillRect(currentPixel.x, currentPixel.y,
+          this.context.fillStyle = 'rgba(0,0,0,0.2)';
+          this.context.fillRect(currentPixel.x, currentPixel.y,
             this.pixelWidth, this.pixelHeight);
         }
       }
