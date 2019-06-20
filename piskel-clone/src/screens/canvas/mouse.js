@@ -19,8 +19,6 @@ const mouseProperties = {
 };
 
 const addMouseListeners = (canvasElem) => {
-  console.log('canvasElem =', canvasElem);
-
   const getCoords = (elem) => {
     const rect = elem.getBoundingClientRect();
     return {
@@ -31,13 +29,9 @@ const addMouseListeners = (canvasElem) => {
 
   canvasElem.addEventListener('mouseover', function (e) {
     mouseProperties.events.mouseover = true;
-    console.log('this =', this);
 
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
-
-    console.log('mouseProperties.x =', mouseProperties.x);
-    console.log('mouseProperties.y =', mouseProperties.y);
   });
 
   canvasElem.addEventListener('mouseout', () => {

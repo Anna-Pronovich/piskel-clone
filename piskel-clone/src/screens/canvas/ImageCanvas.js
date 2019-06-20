@@ -19,7 +19,6 @@ export default class ImageCanvas {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-    this.hasFocus = false;
 
     addMouseListeners(this.canvas);
   }
@@ -43,7 +42,6 @@ export default class ImageCanvas {
           if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
             currentPixel.on = true;
             currentPixel.color = this.palette.getCurrentColor();
-            // currentPixel.color = '#000000';
           }
         }
         this.pixelStorage.setPixel(x, y, currentPixel);
@@ -72,4 +70,10 @@ export default class ImageCanvas {
       }
     }
   }
+
+  // mouseMove(event) {
+  //   let mouseX = event.clientX - this.canvas.offsetLeft;
+  //   let mouseY = event.clientY - this.canvas.offsetTop;
+  // console.log('mouseX '+ mouseX, 'mouseY ' + mouseY);
+  // }
 }

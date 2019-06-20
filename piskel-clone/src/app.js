@@ -17,16 +17,18 @@ const app = {
 
   init(options) {
     const pixelStorage = new PixelStorage(options);
-    const palette = new Palette(options.pixelColor);
+    const palette = new Palette(options.currentColor);
     this.imageCanvas = new ImageCanvas(options, pixelStorage, palette);
   },
 
   update() {
     this.imageCanvas.update();
+    // return true;
   },
 
   render() {
     this.imageCanvas.render();
+    // return true;
   },
 
   run() {
