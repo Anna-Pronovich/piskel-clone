@@ -1,7 +1,7 @@
 export default class App {
   constructor(options) {
     const {
-      update, fps, render, canvas,
+      canvas, fps, update, render,
     } = options;
     const context = canvas.getContext('2d');
     const step = 1 / fps;

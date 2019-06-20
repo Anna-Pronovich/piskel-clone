@@ -7,8 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Mali:400,600&display=swap" rel="stylesheet">
 
-  <!-- <link rel="stylesheet" href="./screens/index.css"> -->
-
   <title>Piskel Clone</title>
 </head>
 
@@ -27,7 +25,11 @@
         <button class="tool_btn" id="tool-rectangle" title="rectangle"></button>
         <button class="tool_btn" id="tool-circle" title="circle"></button>
       </div>
-      <div class="palette" id="palette">palette</div>
+      <div class="palette-container">
+          <div class="palette" id="palette"></div>
+          <div class="previousColor" id="previousColor"></div>
+      </div>
+
     </div>
 
     <div class="conteiner-frames">
@@ -36,7 +38,7 @@
     </div>
 
     <div class="canvas-container">
-      <canvas id="canvas" width="700" height="700"></canvas>
+        <canvas id="canvas"></canvas>
     </div>
 
     <div class="preview">
@@ -48,7 +50,7 @@
     </div>
 
   </main>
-
+  <script src="https://unpkg.com/vanilla-picker@2"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ export default class PixelStorage {
     this.numberPixelsInHeight = options.pixelsInCanvasHeight;
     this.pixelWidth = options.pixelWidth;
     this.pixelHeight = options.pixelHeight;
+    this.reset();
   }
 
   setPixel(row, col, value) {
@@ -15,13 +16,13 @@ export default class PixelStorage {
     return this.pixels[this.numberPixelsInWidth * row + col];
   }
 
-  getArrayPixels() {
-    return this.pixels;
-  }
+  // getArrayPixels() {
+  //   return this.pixels;
+  // }
 
-  setArrayPixels(pixels) {
-    this.pixels = pixels;
-  }
+  // setArrayPixels(pixels) {
+  //   this.pixels = pixels;
+  // }
 
   reset() {
     for (let col = 1; col <= this.numberPixelsInHeight; col += 1) {
@@ -29,7 +30,7 @@ export default class PixelStorage {
         this.setPixel(
           row, col, {
             mouseOver: false,
-            color: '#000000',
+            color: '#ffffff',
             on: false,
             x: ((row - 1) * this.pixelWidth),
             y: ((col - 1) * this.pixelHeight),

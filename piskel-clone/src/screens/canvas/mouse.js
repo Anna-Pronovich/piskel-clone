@@ -19,18 +19,25 @@ const mouseProperties = {
 };
 
 const addMouseListeners = (canvasElem) => {
-  const getCoords = (elem) => {
-    const rect = elem.getBoundingClientRect();
+  console.log("canvasElem =", canvasElem);
+
+  const getCoords = (canvasElem) => {
+    const rect = canvasElem.getBoundingClientRect();
     return {
       top: (rect.top + document.body.scrollTop),
       left: (rect.left + document.body.scrollLeft),
     };
   };
 
-  canvasElem.addEventListener('mouseover', (e) => {
+  canvasElem.addEventListener('mouseover', function (e) {
     mouseProperties.events.mouseover = true;
+    console.log("this =", this);
+
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
+
+    console.log("mouseProperties.x =", mouseProperties.x)
+    console.log("mouseProperties.y =", mouseProperties.y)
   });
 
   canvasElem.addEventListener('mouseout', () => {
@@ -51,14 +58,14 @@ const addMouseListeners = (canvasElem) => {
     return false;
   });
 
-  canvasElem.addEventListener('mousedown', (e) => {
+  canvasElem.addEventListener('mousedown', function (e) {
     mouseProperties.events.mousedown = true;
     mouseProperties.events.mouseup = false;
     mouseProperties.events.mouseButton = e.which;
     return false;
   });
 
-  canvasElem.addEventListener('mouseup', () => {
+  canvasElem.addEventListener('mouseup', function () {
     mouseProperties.events.mousedown = false;
     mouseProperties.events.mouseup = true;
     mouseProperties.events.mouseButton = 0;

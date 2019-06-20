@@ -13,7 +13,6 @@
   display: grid;
   grid-template-columns:repeat(2, 48px);
   align-content: start;
-  /* background-color: #C8C8C8; */
 }
 
 #tool-pen {
@@ -34,11 +33,6 @@
 
 #tool-circle {
   background-image: url(../../assets/images/tool-circle.png);
-}
-.palette {
-  width: 100%;;
-  height: 120px;
-  /* background-color: #C8C8C8; */
 }
 
 .tool_btn {
@@ -62,4 +56,33 @@
 .tool_btn.active {
   background: #8eec72;
   text-decoration: none;
+}
+
+.palette-container {
+  position: relative;
+  height: 100px;
+
+}
+
+.palette {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  background-color: black;
+  cursor: pointer;
+}
+
+.previousColor {
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  background-color: transparent;
 }
