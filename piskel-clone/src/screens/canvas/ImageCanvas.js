@@ -70,10 +70,4 @@ export default class ImageCanvas {
       }
     }
   }
-
-  // mouseMove(event) {
-  //   let mouseX = event.clientX - this.canvas.offsetLeft;
-  //   let mouseY = event.clientY - this.canvas.offsetTop;
-  // console.log('mouseX '+ mouseX, 'mouseY ' + mouseY);
-  // }
 }
