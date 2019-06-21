@@ -29,12 +29,3 @@ main {
  display: flex;
  flex-flow: row wrap;
 }
-
-#mouseCoordinates {
-  height: 20px;
-  padding: 5px 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color:#ff3232;
-  background-color: aliceblue;
-}

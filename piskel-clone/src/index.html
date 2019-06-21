@@ -26,8 +26,8 @@
         <button class="tool_btn" id="tool-circle" title="circle"></button>
       </div>
       <div class="palette-container">
-          <div class="palette" id="palette"></div>
-          <div class="previousColor" id="previousColor"></div>
+        <div class="palette" id="palette"></div>
+        <div class="previousColor" id="previousColor"></div>
       </div>
 
     </div>
@@ -39,21 +39,37 @@
 
     <div class="canvas-container">
       <div class="canvas-wrapper">
-          <canvas id="canvas"></canvas>
+        <canvas id="canvas"></canvas>
       </div>
     </div>
-<div class="additionalOptions">
-    <div class="preview">
-      <canvas id="canvas-preview"></canvas>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="24" value="1" class="slider" id="fpsRange">
-        <p>Value: <span id="fpsValue"></span></p>
+    <div class="vertical-wrapper">
+      <div class="preview">
+        <canvas id="canvas-preview"></canvas>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="24" value="1" class="slider" id="fpsRange">
+          <p>Value: <span id="fpsValue"></span></p>
+        </div>
       </div>
-    </div>
-    <p id="mouseCoordinates" >
 
-    </p>
-</div>
+      <ul id="canvasInformation">
+        <li id="cavasZoom"></li>
+        <li id="canvasSize"></li>
+        <li id="mouseCoordinates"></li>
+      </ul>
+      <div>
+        <div class="list-canvasSize">
+          <label><input type="radio" class="list-canvasSize_item " id="sizeSmall" name="canvasSize" value="32" checked>32x32</label><br>
+          <label><input type="radio" class="list-canvasSize_item " id="sizeMiddle" name="canvasSize" value="64">64x64</label><br>
+          <label><input type="radio" class="list-canvasSize_item " id="sizeBig" name="canvasSize" value="128">128x128</label><br>
+          <button class="resize_btn" id="resize_btn" value="RESIZE">RESIZE</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
   </main>
   <script src="https://unpkg.com/vanilla-picker@2"></script>
 </body>

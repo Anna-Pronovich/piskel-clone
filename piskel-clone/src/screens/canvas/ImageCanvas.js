@@ -5,27 +5,28 @@ export default class ImageCanvas {
     this.pixelStorage = pixelStorage;
     this.palette = palette;
 
-    this.numberPixelsInWidth = options.pixelsInCanvasWidth;
-    this.numberPixelsInHeight = options.pixelsInCanvasHeight;
-    this.pixelWidth = options.pixelWidth;
-    this.pixelHeight = options.pixelHeight;
+    this.pixelsInWidth = options.canvasSize;
+    this.pixelsInHeight = options.canvasSize;
+    this.zoom = options.zoom;
+    this.pixelWidth = this.zoom;
+    this.pixelHeight = this.zoom;
 
     this.canvas = document.getElementById('canvas');
     this.context = this.canvas.getContext('2d');
-    this.canvas.width = this.numberPixelsInWidth * this.pixelWidth;
-    this.canvas.height = this.numberPixelsInHeight * this.pixelHeight;
+    this.canvas.width = this.pixelsInWidth * this.pixelWidth;
+    this.canvas.height = this.pixelsInHeight * this.pixelHeight;
 
     this.context.fillStyle = '#FFFFFF';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
-    addMouseListeners(this.canvas);
+    addMouseListeners(this.canvas, this.zoom);
   }
 
   update() {
-    for (let y = 1; y <= this.numberPixelsInHeight; y += 1) {
-      for (let x = 1; x <= this.numberPixelsInWidth; x += 1) {
+    for (let y = 1; y <= this.pixelsInHeight; y += 1) {
+      for (let x = 1; x <= this.pixelsInWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
 
         currentPixel.mouseOver = false;
@@ -52,8 +53,8 @@ export default class ImageCanvas {
   render() {
     this.context.putImageData(this.canvasGrid, 0, 0);
 
-    for (let y = 1; y <= this.numberPixelsInHeight; y += 1) {
-      for (let x = 1; x <= this.numberPixelsInWidth; x += 1) {
+    for (let y = 1; y <= this.pixelsInHeight; y += 1) {
+      for (let x = 1; x <= this.pixelsInWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
 
         if (currentPixel.on) {

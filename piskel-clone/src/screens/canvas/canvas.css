@@ -5,10 +5,106 @@
   justify-content: center;
   align-items: center;
   margin: 0 20px;
+  padding:20px;
   background-color: #AAAEAF;
 }
 
 canvas {
   background: #fff;
   border: 1px solid #7B899B;
+}
+
+#canvasInformation {
+  min-height: 60px;
+  padding: 5px 10px;
+  list-style: none;
+  font-size: 16px;
+  font-weight: bold;
+  color:#ff3232;
+  background-color: #FFFFFF;;
+  box-shadow: 0px 2px 9px 1px #AAAEAF;
+  border-radius: 5px;
+}
+
+.list-canvasSize {
+  padding: 5px 10px;
+  color: #00dcdc;
+  background-color: #FFFFFF;;
+  box-shadow: 0px 2px 9px 1px #AAAEAF;
+  border-radius: 5px;
+}
+
+.list-canvasSize label {
+  display: block;
+  line-height: 20px;
+}
+
+.list-canvasSize_item {
+  position: relative;
+  top: 6px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  margin: 0 7px 0 0 ;
+  color: #fff;
+  background: #cbd1d8;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  transition: all 0.15s ease-out 0s;
+  cursor: pointer;
+  z-index: 1000;
+  -webkit-appearance: none;
+}
+
+.list-canvasSize_item:hover {
+  background: #9faab7;
+}
+
+.list-canvasSize_item:checked {
+  background: #00dcdc;
+}
+
+.list-canvasSize_item:checked::before {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  content: '✔';
+  display: inline-block;
+  font-size: 15px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.list-canvasSize_item::after {
+  border-radius: 50%;
+}
+
+.list-canvasSize_item:checked::after {
+  background: #40e0d0;
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+
+.resize_btn {
+  margin: 2px 0;
+  padding: 8px 12px;
+  color: #ffffff;
+  background-color: #40e0d0;
+  font-weight: bold;
+  border: solid 1px transparent;
+  border-radius: 4px;
+}
+.resize_btn:hover {
+  background-color:#9faab7;
+}
+
+.resize_btn:active{
+  color: #40e0d0;
+  background-color: #ffffff;
 }

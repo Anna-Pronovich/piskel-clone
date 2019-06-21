@@ -7,11 +7,9 @@ import Palette from './screens/tools/Palette';
 const app = {
   imageCanvas: undefined,
   defaultOptions: {
-    pixelsInCanvasWidth: 32,
-    pixelsInCanvasHeight: 32,
-    pixelWidth: 10,
-    pixelHeight: 10,
-    currentColor: '#000000',
+    canvasSize: 32,
+    zoom: 5,
+    currentColor: '#00ccffff',
     currentTool: 'pen',
   },
 
@@ -19,16 +17,32 @@ const app = {
     const pixelStorage = new PixelStorage(options);
     const palette = new Palette(options.currentColor);
     this.imageCanvas = new ImageCanvas(options, pixelStorage, palette);
+
+
+    document.getElementById('cavasZoom').innerHTML = `zoom:  ${options.zoom}`;
+    document.getElementById('canvasSize').innerHTML = `canvas size :  ${options.canvasSize} x ${options.canvasSize}`;
+    document.getElementById('mouseCoordinates').innerHTML = 'coordinates x/y:  0 x 0 ';
+
+
+    document.getElementById('resize_btn').addEventListener('click', () => {
+      const choosingCanvasSize = document.querySelector('input[name="canvasSize"]:checked').value;
+      if (choosingCanvasSize === options.canvasSize) {
+        return false;
+      }
+      if (confirm('Если Вы поменяете сейчас размер, то Вы потеряете свой рисунок. Продолжить?')) {
+        options.canvasSize = choosingCanvasSize;
+        app.init(options);
+      }
+      return false;
+    });
   },
 
   update() {
     this.imageCanvas.update();
-    // return true;
   },
 
   render() {
     this.imageCanvas.render();
-    // return true;
   },
 
   run() {

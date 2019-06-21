@@ -1,19 +1,20 @@
 export default class PixelStorage {
   constructor(options) {
     this.pixels = [];
-    this.numberPixelsInWidth = options.pixelsInCanvasWidth;
-    this.numberPixelsInHeight = options.pixelsInCanvasHeight;
-    this.pixelWidth = options.pixelWidth;
-    this.pixelHeight = options.pixelHeight;
+    this.pixelsInWidth = options.canvasSize;
+    this.pixelsInHeight = options.canvasSize;
+    this.zoom = options.zoom;
+    this.pixelWidth = this.zoom;
+    this.pixelHeight = this.zoom;
     this.reset();
   }
 
   setPixel(row, col, value) {
-    this.pixels[this.numberPixelsInWidth * row + col] = value;
+    this.pixels[this.pixelsInWidth * row + col] = value;
   }
 
   getPixel(row, col) {
-    return this.pixels[this.numberPixelsInWidth * row + col];
+    return this.pixels[this.pixelsInWidth * row + col];
   }
 
   // getArrayPixels() {
@@ -25,8 +26,8 @@ export default class PixelStorage {
   // }
 
   reset() {
-    for (let col = 1; col <= this.numberPixelsInHeight; col += 1) {
-      for (let row = 1; row <= this.numberPixelsInWidth; row += 1) {
+    for (let col = 1; col <= this.pixelsInHeight; col += 1) {
+      for (let row = 1; row <= this.pixelsInWidth; row += 1) {
         this.setPixel(
           row, col, {
             mouseOver: false,

@@ -18,7 +18,7 @@ const mouseProperties = {
   },
 };
 
-const addMouseListeners = (canvasElem) => {
+const addMouseListeners = (canvasElem, zoom) => {
   const getCoords = (elem) => {
     const rect = elem.getBoundingClientRect();
     return {
@@ -49,8 +49,8 @@ const addMouseListeners = (canvasElem) => {
     mouseProperties.events.mousemove = true;
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
-    let containerWithCoordinates = document.getElementById('mouseCoordinates');
-    containerWithCoordinates.innerHTML = `${mouseProperties.x} : ${mouseProperties.y}`;
+    const containerWithCoordinates = document.getElementById('mouseCoordinates');
+    containerWithCoordinates.innerHTML = `coordinates x/y:  ${Math.ceil(mouseProperties.x / zoom)}:${Math.ceil(mouseProperties.y / zoom)}`;
     return false;
   });
 
