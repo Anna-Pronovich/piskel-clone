@@ -49,6 +49,8 @@ const addMouseListeners = (canvasElem) => {
     mouseProperties.events.mousemove = true;
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
+    let containerWithCoordinates = document.getElementById('mouseCoordinates');
+    containerWithCoordinates.innerHTML = `${mouseProperties.x} : ${mouseProperties.y}`;
     return false;
   });
 
