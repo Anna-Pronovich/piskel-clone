@@ -4,9 +4,9 @@ export default class Palette {
   constructor(options) {
     this.currentColor = options;
     this.previousColor = 'transparent';
-
     const palette = document.getElementById('palette');
     const picker = new Color(palette);
+
     picker.onChange = (color) => {
       palette.style.background = color.rgbaString;
       this.update();

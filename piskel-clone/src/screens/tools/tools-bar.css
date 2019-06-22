@@ -53,7 +53,7 @@
   color: white;
 }
 
-.tool_btn.active {
+.tool_btn:active {
   background: #8eec72;
   text-decoration: none;
 }

@@ -1,6 +1,8 @@
 .preview {
-  min-width: 200px;
-  height: 200px;
+  width: 215px;
+  height: 250px;
+  margin: 0;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +12,7 @@
 
 .slidecontainer {
   width: 50%;
-  margin-top: 20px;
+  margin-top: 15px;
   }
 
 .slider {
@@ -42,4 +44,7 @@ width: 25px;
 height: 25px;
 background: #4CAF50;
 cursor: pointer;
+}
+.slidecontainer p {
+  padding: 7px;
 }

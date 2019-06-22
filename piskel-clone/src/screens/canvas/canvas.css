@@ -15,6 +15,7 @@ canvas {
 }
 
 #canvasInformation {
+  width: 215px;
   min-height: 60px;
   padding: 5px 10px;
   list-style: none;
@@ -24,19 +25,23 @@ canvas {
   background-color: #FFFFFF;;
   box-shadow: 0px 2px 9px 1px #AAAEAF;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .list-canvasSize {
+  width: 215px;
   padding: 5px 10px;
   color: #00dcdc;
   background-color: #FFFFFF;;
   box-shadow: 0px 2px 9px 1px #AAAEAF;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .list-canvasSize label {
   display: block;
   line-height: 20px;
+  cursor: pointer;
 }
 
 .list-canvasSize_item {
@@ -99,6 +104,7 @@ canvas {
   font-weight: bold;
   border: solid 1px transparent;
   border-radius: 4px;
+  cursor: pointer;
 }
 .resize_btn:hover {
   background-color:#9faab7;

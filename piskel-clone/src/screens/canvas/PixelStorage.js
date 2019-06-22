@@ -17,6 +17,12 @@ export default class PixelStorage {
     return this.pixels[this.pixelsInWidth * row + col];
   }
 
+  changeCanvasSize(canvasSize) {
+    this.pixelsInWidth = canvasSize;
+    this.pixelsInHeight = canvasSize;
+    this.reset();
+  }
+
   // getArrayPixels() {
   //   return this.pixels;
   // }

@@ -2,26 +2,19 @@ export default class Preview {
   constructor(pixelStorage) {
     this.pixelStorage = pixelStorage;
 
-    this.pixelsInCanvasWidth = 32;
-    this.pixelsInCanvasHeight = 32;
+    this.pixelsInCanvasWidth = this.pixelStorage.pixelsInWidth;
+    this.pixelsInCanvasHeight = this.pixelStorage.pixelsInHeight;
 
     this.canvasPreview = document.getElementById('canvas-preview');
-    this.canvasPreview.width = 50;
-    this.canvasPreview.height = 50;
+    this.canvasPreview.width = this.pixelsInCanvasWidth;
+    this.canvasPreview.height = this.pixelsInCanvasHeight;
     this.contextPreview = this.canvasPreview.getContext('2d');
 
     this.cachePreview = null;
   }
 
-  // render(step, canvas, context) {
-  //   if (!this.loaded) {
-  //     return;
-  //   }
-  //   // context.putImageData(this.cachePreview,0, 0);
-  // }
-
   update() {
-    this.contextPreview.clearRect(0, 0, 50, 50);
+    this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
 
     for (let y = 1; y <= this.pixelsInCanvasHeight; y += 1) {
       for (let x = 1; x <= this.pixelsInCanvasWidth; x += 1) {
@@ -33,6 +26,6 @@ export default class Preview {
       }
     }
 
-    this.cachePreview = this.contextPreview.getImageData(0, 0, 50, 50);
+    this.cachePreview = this.contextPreview.getImageData(0, 0, this.canvasPreview.width, this.canvasPreview.height);
   }
 }
