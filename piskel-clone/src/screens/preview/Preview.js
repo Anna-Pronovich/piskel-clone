@@ -26,6 +26,7 @@ export default class Preview {
       }
     }
 
-    this.cachePreview = this.contextPreview.getImageData(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+    this.cachePreview = this.contextPreview.getImageData(0, 0,
+      this.canvasPreview.width, this.canvasPreview.height);
   }
 }

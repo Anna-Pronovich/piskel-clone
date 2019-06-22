@@ -3,6 +3,7 @@ import PixelStorage from './screens/canvas/PixelStorage';
 import ImageCanvas from './screens/canvas/ImageCanvas';
 import Palette from './screens/tools/Palette';
 import Preview from './screens/preview/Preview';
+import Tools from './screens/tools/Tools';
 
 const app = {
   imageCanvas: undefined,
@@ -17,6 +18,7 @@ const app = {
   init(options) {
     const pixelStorage = new PixelStorage(options);
     const palette = new Palette(options.currentColor);
+    const tools = new Tools(options.currentTool);
     this.imageCanvas = new ImageCanvas(options, pixelStorage, palette);
     this.preview = new Preview(pixelStorage);
 
@@ -25,18 +27,14 @@ const app = {
     document.getElementById('mouseCoordinates').innerHTML = 'coordinates x/y:  0 x 0 ';
 
     document.getElementById('resize_btn').addEventListener('click', () => {
+      const newOptions = options;
       const choosingCanvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
       if (choosingCanvasSize !== options.canvasSize) {
-        if (confirm('If you change the canvas size, you will lose your picture. Continue?')) {
-          options.canvasSize = choosingCanvasSize;
-          options.currentColor = palette.getCurrentColor();
-          app.init(options);
-
-          // document.getElementById('canvasSize').innerHTML = `canvas size :  ${choosingCanvasSize} x ${choosingCanvasSize}`;
-          // pixelStorage = new PixelStorage(options);
-          // this.imageCanvas = new ImageCanvas(options, pixelStorage, palette);
-          // this.preview = new Preview(pixelStorage);
-        }
+        // if (confirm('If you change the canvas size, you will lose your picture. Continue?')) {}
+        newOptions.canvasSize = choosingCanvasSize;
+        newOptions.currentColor = palette.getCurrentColor();
+        newOptions.currentTool = tools.getCurrentTool();
+        app.init(options);
       }
     });
   },
@@ -63,11 +61,6 @@ const app = {
     this.run();
   },
 };
-
-// const pixelStorage = new PixelStorage(app.defaultOptions);
-// const palette = new Palette(app.defaultOptions.pixelColor);
-// const imageCanvas = new ImageCanvas(app.defaultOptions, pixelStorage, palette);
-// const preview = new Preview(pixelStorage);
 
 window.addEventListener('load', () => {
   app.start();

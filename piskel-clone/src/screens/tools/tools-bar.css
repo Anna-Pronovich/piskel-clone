@@ -11,8 +11,7 @@
 
 .tools-container {
   display: grid;
-  grid-template-columns:repeat(2, 48px);
-  align-content: start;
+  grid-template-columns:repeat(2, 50px);
 }
 
 #tool-pen {
@@ -53,15 +52,13 @@
   color: white;
 }
 
-.tool_btn:active {
-  background: #8eec72;
-  text-decoration: none;
+.tool_btn.active {
+  background: #00dcdc;
 }
 
 .palette-container {
   position: relative;
   height: 100px;
-
 }
 
 .palette {
