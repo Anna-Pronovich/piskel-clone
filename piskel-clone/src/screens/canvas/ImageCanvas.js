@@ -1,9 +1,10 @@
 import { mouseProperties, addMouseListeners } from './mouse';
 
 export default class ImageCanvas {
-  constructor(options, pixelStorage, palette) {
+  constructor(options, pixelStorage, palette, tool) {
     this.pixelStorage = pixelStorage;
     this.palette = palette;
+    this.tool = tool;
 
     this.pixelsInWidth = options.canvasSize;
     this.pixelsInHeight = options.canvasSize;
@@ -22,6 +23,21 @@ export default class ImageCanvas {
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
     addMouseListeners(this.canvas, this.zoom);
+    // this.element.addEventListener('mousedown', (event) => this.mouseDown = true);
+    // window.addEventListener('mouseup', (event) => this.mouseUp(event));
+    // this.element.addEventListener('click', (event) => this.click(event));
+    // this.element.addEventListener('mousemove', (event) => this.click(event));
+    // parent.element.appendChild(this.element);
+  }
+
+  static checkMouseInPixel(currentPixel) {
+    const isInWidth = (mouseProperties.x >= currentPixel.x)
+      && mouseProperties.x <= (currentPixel.x + currentPixel.w);
+
+    const isInHeight = (mouseProperties.y >= currentPixel.y)
+      && mouseProperties.y <= (currentPixel.y + currentPixel.h);
+
+    return isInWidth && isInHeight;
   }
 
   update() {
@@ -31,18 +47,16 @@ export default class ImageCanvas {
 
         currentPixel.mouseOver = false;
 
-        const condition1 = (mouseProperties.x >= currentPixel.x)
-          && mouseProperties.x <= (currentPixel.x + currentPixel.w);
-
-        const condition2 = (mouseProperties.y >= currentPixel.y)
-          && mouseProperties.y <= (currentPixel.y + currentPixel.h);
-
-
-        if (condition1 && condition2) {
+        if (ImageCanvas.checkMouseInPixel(currentPixel)) {
           currentPixel.mouseOver = true;
           if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
-            currentPixel.on = true;
-            currentPixel.color = this.palette.getCurrentColor();
+            currentPixel.selected = true;
+            const curentTool = this.tool.getCurrentTool();
+            if (curentTool === 'tool-pen') {
+              currentPixel.color = this.palette.getCurrentColor();
+            } else if (curentTool === 'tool-eraser') {
+              currentPixel.color = '#ffffff';
+            }
           }
         }
         this.pixelStorage.setPixel(x, y, currentPixel);
@@ -57,7 +71,7 @@ export default class ImageCanvas {
       for (let x = 1; x <= this.pixelsInWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
 
-        if (currentPixel.on) {
+        if (currentPixel.selected) {
           this.context.fillStyle = currentPixel.color;
           this.context.fillRect(currentPixel.x, currentPixel.y,
             this.pixelWidth, this.pixelHeight);

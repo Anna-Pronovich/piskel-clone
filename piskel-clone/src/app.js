@@ -3,7 +3,7 @@ import PixelStorage from './screens/canvas/PixelStorage';
 import ImageCanvas from './screens/canvas/ImageCanvas';
 import Palette from './screens/tools/Palette';
 import Preview from './screens/preview/Preview';
-import Tools from './screens/tools/Tools';
+import Tool from './screens/tools/Tool';
 
 const app = {
   imageCanvas: undefined,
@@ -12,14 +12,14 @@ const app = {
     canvasSize: 32,
     zoom: 10,
     currentColor: '#00ccffff',
-    currentTool: 'pen',
+    currentTool: 'tool-pen',
   },
 
   init(options) {
     const pixelStorage = new PixelStorage(options);
     const palette = new Palette(options.currentColor);
-    const tools = new Tools(options.currentTool);
-    this.imageCanvas = new ImageCanvas(options, pixelStorage, palette);
+    const tool = new Tool(options.currentTool);
+    this.imageCanvas = new ImageCanvas(options, pixelStorage, palette, tool);
     this.preview = new Preview(pixelStorage);
 
     document.getElementById('cavasZoom').innerHTML = `zoom:  ${options.zoom}`;
@@ -33,7 +33,7 @@ const app = {
         // if (confirm('If you change the canvas size, you will lose your picture. Continue?')) {}
         newOptions.canvasSize = choosingCanvasSize;
         newOptions.currentColor = palette.getCurrentColor();
-        newOptions.currentTool = tools.getCurrentTool();
+        newOptions.currentTool = tool.getCurrentTool();
         app.init(options);
       }
     });

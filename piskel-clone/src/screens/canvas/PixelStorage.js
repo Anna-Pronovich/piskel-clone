@@ -38,7 +38,7 @@ export default class PixelStorage {
           row, col, {
             mouseOver: false,
             color: '#ffffff',
-            on: false,
+            selected: false,
             x: ((row - 1) * this.pixelWidth),
             y: ((col - 1) * this.pixelHeight),
             h: (this.pixelHeight - 1),

@@ -27,7 +27,7 @@ const addMouseListeners = (canvasElem, zoom) => {
     };
   };
 
-  canvasElem.addEventListener('mouseover', function (e) {
+  canvasElem.addEventListener('mouseover', function mouseover(e) {
     mouseProperties.events.mouseover = true;
 
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
@@ -45,7 +45,7 @@ const addMouseListeners = (canvasElem, zoom) => {
     mouseProperties.y = 0;
   });
 
-  canvasElem.addEventListener('mousemove', function (e) {
+  canvasElem.addEventListener('mousemove', function mousemove(e) {
     mouseProperties.events.mousemove = true;
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
