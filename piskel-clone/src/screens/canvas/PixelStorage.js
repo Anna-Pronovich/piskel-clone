@@ -23,9 +23,9 @@ export default class PixelStorage {
     this.reset();
   }
 
-  // getArrayPixels() {
-  //   return this.pixels;
-  // }
+  getArrayPixels() {
+    return this.pixels;
+  }
 
   // setArrayPixels(pixels) {
   //   this.pixels = pixels;
@@ -38,6 +38,24 @@ export default class PixelStorage {
           row, col, {
             mouseOver: false,
             color: '#ffffff',
+            selected: false,
+            x: ((row - 1) * this.pixelWidth),
+            y: ((col - 1) * this.pixelHeight),
+            h: (this.pixelHeight - 1),
+            w: (this.pixelWidth - 1),
+          },
+        );
+      }
+    }
+  }
+
+  paintAll(paintColor) {
+    for (let col = 1; col <= this.pixelsInHeight; col += 1) {
+      for (let row = 1; row <= this.pixelsInWidth; row += 1) {
+        this.setPixel(
+          row, col, {
+            mouseOver: false,
+            color: paintColor,
             selected: false,
             x: ((row - 1) * this.pixelWidth),
             y: ((col - 1) * this.pixelHeight),

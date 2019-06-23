@@ -19,10 +19,8 @@ export default class Preview {
     for (let y = 1; y <= this.pixelsInCanvasHeight; y += 1) {
       for (let x = 1; x <= this.pixelsInCanvasWidth; x += 1) {
         const currentPixel = this.pixelStorage.getPixel(x, y);
-        if (currentPixel.selected) {
-          this.contextPreview.fillStyle = currentPixel.color;
-          this.contextPreview.fillRect((0 + x - 1), (0 + y - 1), 2, 2);
-        }
+        this.contextPreview.fillStyle = currentPixel.color;
+        this.contextPreview.fillRect((0 + x - 1), (0 + y - 1), 2, 2);
       }
     }
 
