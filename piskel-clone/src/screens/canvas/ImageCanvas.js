@@ -23,11 +23,6 @@ export default class ImageCanvas {
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
     addMouseListeners(this.canvas, this.zoom);
-    // this.element.addEventListener('mousedown', (event) => this.mouseDown = true);
-    // window.addEventListener('mouseup', (event) => this.mouseUp(event));
-    // this.element.addEventListener('click', (event) => this.click(event));
-    // this.element.addEventListener('mousemove', (event) => this.click(event));
-    // parent.element.appendChild(this.element);
   }
 
   static checkMouseInPixel(currentPixel) {
@@ -56,6 +51,8 @@ export default class ImageCanvas {
               currentPixel.color = this.palette.getCurrentColor();
             } else if (curentTool === 'tool-eraser') {
               currentPixel.color = '#ffffff';
+            } else if (curentTool === 'tool-color-picker') {
+              this.palette.setCurrentColor(currentPixel.color);
             }
           }
         }

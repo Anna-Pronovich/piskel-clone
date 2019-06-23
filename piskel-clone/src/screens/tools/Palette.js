@@ -9,17 +9,21 @@ export default class Palette {
 
     picker.onChange = (color) => {
       palette.style.background = color.rgbaString;
-      this.update();
+      this.updatePreviousColor();
       this.currentColor = color.rgbaString;
     };
   }
 
-  update() {
-    const palette = document.getElementById('palette');
-    const containerPreviousColor = document.getElementById('previousColor');
+  updatePreviousColor() {
     this.previousColor = this.currentColor;
+    const containerPreviousColor = document.getElementById('previousColor');
     containerPreviousColor.style.background = this.currentColor;
-    this.currentColor = palette.style.background;
+  }
+
+  setCurrentColor(color) {
+    this.currentColor = color;
+    const palette = document.getElementById('palette');
+    palette.style.background = color;
   }
 
   getCurrentColor() {
