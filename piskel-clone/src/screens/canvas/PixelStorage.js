@@ -1,11 +1,14 @@
 export default class PixelStorage {
-  constructor(options) {
+  constructor(canvasSize, zoom) {
     this.pixels = [];
-    this.pixelsInWidth = options.canvasSize;
-    this.pixelsInHeight = options.canvasSize;
-    this.zoom = options.zoom;
-    this.pixelWidth = this.zoom;
-    this.pixelHeight = this.zoom;
+
+    this.canvasSize = canvasSize;
+    this.pixelsInWidth = this.canvasSize;
+    this.pixelsInHeight = this.canvasSize;
+
+    this.pixelSize = zoom;
+    this.pixelWidth = this.pixelSize;
+    this.pixelHeight = this.pixelSize;
     this.reset();
   }
 
@@ -15,6 +18,14 @@ export default class PixelStorage {
 
   getPixel(row, col) {
     return this.pixels[this.pixelsInWidth * row + col];
+  }
+
+  getCanvasSize() {
+    return this.canvasSize;
+  }
+
+  getPixelSize() {
+    return this.pixelSize;
   }
 
   changeCanvasSize(canvasSize) {
@@ -38,24 +49,6 @@ export default class PixelStorage {
           row, col, {
             mouseOver: false,
             color: '#ffffff',
-            selected: false,
-            x: ((row - 1) * this.pixelWidth),
-            y: ((col - 1) * this.pixelHeight),
-            h: (this.pixelHeight - 1),
-            w: (this.pixelWidth - 1),
-          },
-        );
-      }
-    }
-  }
-
-  paintAll(paintColor) {
-    for (let col = 1; col <= this.pixelsInHeight; col += 1) {
-      for (let row = 1; row <= this.pixelsInWidth; row += 1) {
-        this.setPixel(
-          row, col, {
-            mouseOver: false,
-            color: paintColor,
             selected: false,
             x: ((row - 1) * this.pixelWidth),
             y: ((col - 1) * this.pixelHeight),

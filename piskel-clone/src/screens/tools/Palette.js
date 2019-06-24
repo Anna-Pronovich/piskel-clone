@@ -1,12 +1,12 @@
 import Color from '../../../node_modules/vanilla-picker';
 
 export default class Palette {
-  constructor(defaultColor) {
-    this.currentColor = defaultColor;
-    this.previousColor = 'transparent';
+  constructor() {
     const palette = document.getElementById('palette');
-    const picker = new Color(palette);
+    this.currentColor = window.getComputedStyle(palette).backgroundColor;
+    this.previousColor = 'transparent';
 
+    const picker = new Color(palette);
     picker.onChange = (color) => {
       palette.style.background = color.rgbaString;
       this.updatePreviousColor();

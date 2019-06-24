@@ -1,70 +1,68 @@
 import './index.css';
 import PixelStorage from './screens/canvas/PixelStorage';
 import ImageCanvas from './screens/canvas/ImageCanvas';
-import Palette from './screens/tools/Palette';
 import Preview from './screens/preview/Preview';
-import Tool from './screens/tools/Tool';
+// import Frame from './components/frames-list/Frames';
 
+class App {
+  constructor() {
+    this.zoom = 5;
+    this.canvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
 
-const app = {
-  imageCanvas: undefined,
-  frame: undefined,
-  preview: undefined,
-  defaultOptions: {
-    canvasSize: 64,
-    zoom: 5,
-    currentColor: '#00ccffff',
-    currentTool: 'tool-pen',
-    penSize: 2,
-  },
+    this.pixelStorage = null;
+    this.imageCanvas = null;
 
-  init(options) {
-    const pixelStorage = new PixelStorage(options);
-    const palette = new Palette(options.currentColor);
-    const tool = new Tool(options.currentTool);
-    this.imageCanvas = new ImageCanvas(options, pixelStorage, palette, tool);
-    this.preview = new Preview(pixelStorage);
+    // this.frame = null;
+    this.preview = null;
 
-    document.getElementById('cavasZoomInfo').innerHTML = `zoom:  ${options.zoom}`;
-    document.getElementById('canvasSizeInfo').innerHTML = `canvas size :  ${options.canvasSize} x ${options.canvasSize}`;
+    document.getElementById('canvasZoomInfo').innerHTML = `zoom:  ${this.zoom}`;
+    document.getElementById('canvasSizeInfo').innerHTML = `canvas size :
+      ${this.canvasSize} x ${this.canvasSize}`;
     document.getElementById('mouseCoordinatesInfo').innerHTML = 'coordinates x/y:  0 x 0 ';
 
-    document.getElementById('resize_btn').addEventListener('click', () => {
-      const newOptions = options;
-      const choosingCanvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
-      if (choosingCanvasSize !== options.canvasSize) {
-        // if (confirm('If you change the canvas size, you will lose your picture. Continue?')) {}
-        newOptions.canvasSize = choosingCanvasSize;
-        newOptions.currentColor = palette.getCurrentColor();
-        newOptions.currentTool = tool.getCurrentTool();
-        app.init(options);
-      }
-    });
-  },
+    document.getElementById('resize_btn').addEventListener('click', () => this.resiseCanvas());
+  }
+
+  init() {
+    this.pixelStorage = new PixelStorage(this.canvasSize, this.zoom);
+    this.imageCanvas = new ImageCanvas(this.pixelStorage);
+    // this.frame = new Frame(this.pixelStorage);
+    this.preview = new Preview(this.pixelStorage);
+  }
+
+  resiseCanvas() {
+    const choosingCanvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
+    if (choosingCanvasSize !== this.imageCanvas.getCanvassize()) {
+      this.canvasSize = choosingCanvasSize;
+      this.init(this.canvasSize, this.zoom);
+    }
+  }
 
   update() {
     this.imageCanvas.update();
     this.preview.update();
-  },
+    // this.frame.updateCanvasInFrame();
+  }
 
   render() {
     this.imageCanvas.render();
-  },
+  }
 
   run() {
     this.render();
     this.update();
     window.requestAnimationFrame(() => {
-      app.run();
+      this.run();
     });
-  },
+  }
 
   start() {
-    this.init(this.defaultOptions);
+    this.init(this.canvasSize, this.zoom);
     this.run();
-  },
-};
+  }
+}
 
 window.addEventListener('load', () => {
+  const app = new App();
   app.start();
 });

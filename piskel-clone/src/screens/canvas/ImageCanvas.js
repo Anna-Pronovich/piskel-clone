@@ -1,17 +1,19 @@
 import { mouseProperties, addMouseListeners } from './mouse';
+import Palette from '../tools/Palette';
+import Tool from '../tools/Tool';
 
 export default class ImageCanvas {
-  constructor(options, pixelStorage, palette, tool) {
-    this.pixelStorage = pixelStorage;
-    this.palette = palette;
-    this.tool = tool;
+  constructor(pixelStorage) {
+    this.palette = new Palette();
+    this.tool = new Tool();
 
-    this.pixelsInWidth = options.canvasSize;
-    this.pixelsInHeight = options.canvasSize;
-    this.zoom = options.zoom;
-    this.pixelWidth = this.zoom;
-    this.pixelHeight = this.zoom;
-    this.penSize = options.penSize;
+    this.pixelStorage = pixelStorage;
+
+    this.pixelsInWidth = this.pixelStorage.getCanvasSize();
+    this.pixelsInHeight = this.pixelStorage.getCanvasSize();
+
+    this.pixelWidth = this.pixelStorage.getPixelSize();
+    this.pixelHeight = this.pixelStorage.getPixelSize();
 
     this.canvas = document.getElementById('canvas');
     this.context = this.canvas.getContext('2d');
@@ -24,11 +26,11 @@ export default class ImageCanvas {
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
     addMouseListeners(this.canvas, this.zoom);
-    document.getElementById('list-penSize').addEventListener('click', () => this.changePenSize());
   }
 
-  changePenSize() {
-    this.penSize = +document.querySelector('input[name="penSize"]:checked').value;
+
+  getCanvassize() {
+    return this.pixelsInWidth;
   }
 
   fillCanvas() {
@@ -40,18 +42,6 @@ export default class ImageCanvas {
       }
     }
   }
-
-  // drawRectangle(currentPixel, currentColor) {
-  //   const xStart = currentPixel.x;
-  //   const yStart = currentPixel.y;
-  //   const xEnd = mouseProperties.x;
-  //   const yEnd = mouseProperties.y;
-  //   this.context.beginPath();
-  //   this.context.lineWidth = this.pixelWidth;
-  //   this.context.strokeStyle = currentColor;
-  //   this.context.rect(xStart, yStart, xEnd, yEnd);
-  //   this.context.stroke();
-  // }
 
   static checkMouseInPixel(currentPixel) {
     const isInWidth = (mouseProperties.x >= currentPixel.x)
@@ -67,9 +57,6 @@ export default class ImageCanvas {
     const currentPixelTop = this.pixelStorage.getPixel(x, y + 1);
     const currentPixelTopLeft = this.pixelStorage.getPixel(x - 1, y + 1);
     const currentPixelleft = this.pixelStorage.getPixel(x - 1, y);
-    // currentPixelTop.mouseOver = true;
-    // currentPixelTopLeft.mouseOver = true;
-    // currentPixelleft.mouseOver = true;
 
     currentPixelTop.color = currentColor;
     currentPixelTopLeft.color = currentColor;
@@ -91,21 +78,23 @@ export default class ImageCanvas {
           currentPixel.mouseOver = true;
           if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
             currentPixel.selected = true;
+
             const currentColor = this.palette.getCurrentColor();
             const curentTool = this.tool.getCurrentTool();
+            const penSize = this.tool.getPenSize();
 
             if (curentTool === 'tool-pen') {
               currentPixel.color = currentColor;
               this.pixelStorage.setPixel(x, y, currentPixel);
 
-              if (this.penSize === 2) {
+              if (penSize === 2) {
                 this.paintPenSize2x(x, y, currentColor);
               }
             } else if (curentTool === 'tool-eraser') {
               currentPixel.color = '#ffffff';
               this.pixelStorage.setPixel(x, y, currentPixel);
 
-              if (this.penSize === 2) {
+              if (penSize === 2) {
                 this.paintPenSize2x(x, y, '#ffffff');
               }
             } else if (curentTool === 'tool-color-picker') {
@@ -113,9 +102,6 @@ export default class ImageCanvas {
             } else if (curentTool === 'tool-paint-bucket') {
               this.fillCanvas();
             }
-            // else if (curentTool === 'tool-rectangle') {
-            //   this.drawRectangle(currentPixel, currentColor);
-            // }
           }
         }
       }
