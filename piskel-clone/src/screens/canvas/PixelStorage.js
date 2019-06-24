@@ -27,9 +27,9 @@ export default class PixelStorage {
     return this.pixels;
   }
 
-  // setArrayPixels(pixels) {
-  //   this.pixels = pixels;
-  // }
+  setArrayPixels(pixels) {
+    this.pixels = pixels;
+  }
 
   reset() {
     for (let col = 1; col <= this.pixelsInHeight; col += 1) {

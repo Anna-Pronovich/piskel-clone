@@ -49,7 +49,7 @@ const addMouseListeners = (canvasElem, zoom) => {
     mouseProperties.events.mousemove = true;
     mouseProperties.x = Math.floor(e.clientX - getCoords(this).left);
     mouseProperties.y = Math.floor(e.clientY - getCoords(this).top);
-    const containerWithCoordinates = document.getElementById('mouseCoordinates');
+    const containerWithCoordinates = document.getElementById('mouseCoordinatesInfo');
     containerWithCoordinates.innerHTML = `coordinates x/y:  ${Math.ceil(mouseProperties.x / zoom)}:${Math.ceil(mouseProperties.y / zoom)}`;
     return false;
   });

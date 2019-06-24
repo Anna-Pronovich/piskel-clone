@@ -17,6 +17,12 @@
   </header>
   <main>
     <div class="wrapper-tools-palette">
+      <div id="list-penSize">
+        <p>Pen size</p>
+        <label><input type="radio" class="list-penSize_item" id="smallPen" name="penSize" value="1"
+            checked>1x</label>
+        <label><input type="radio" class="list-penSize_item" id="bigPen" name="penSize" value="2" checked>2x</label><br>
+      </div>
       <div class="tools-container" id="tools-container">
         <button class="tool_btn active" id="tool-pen" title="pen"></button>
         <button class="tool_btn" id="tool-paint-bucket" title="bucket"></button>
@@ -52,19 +58,20 @@
       </div>
 
       <ul id="canvasInformation">
-        <li id="cavasZoom"></li>
-        <li id="canvasSize"></li>
-        <li id="mouseCoordinates"></li>
+        <li id="cavasZoomInfo"></li>
+        <li id="canvasSizeInfo"></li>
+        <li id="mouseCoordinatesInfo"></li>
       </ul>
       <div>
         <div class="list-canvasSize">
-          <label><input type="radio" class="list-canvasSize_item " id="sizeSmall" name="canvasSize" value="32" checked>32x32</label><br>
-          <label><input type="radio" class="list-canvasSize_item " id="sizeMiddle" name="canvasSize" value="64">64x64</label><br>
-          <label><input type="radio" class="list-canvasSize_item " id="sizeBig" name="canvasSize" value="128">128x128</label><br>
+          <label><input type="radio" class="list-canvasSize_item " id="sizeCanvasSmall" name="canvasSize"
+              value="32">32x32</label><br>
+          <label><input type="radio" class="list-canvasSize_item " id="sizeCanvasMiddle" name="canvasSize" value="64"
+              checked>64x64</label><br>
+          <label><input type="radio" class="list-canvasSize_item " id="sizeCanvasBig" name="canvasSize"
+              value="128">128x128</label><br>
           <button class="resize_btn" id="resize_btn" value="RESIZE">RESIZE</button>
         </div>
-
-
       </div>
 
     </div>

@@ -11,6 +11,7 @@ export default class ImageCanvas {
     this.zoom = options.zoom;
     this.pixelWidth = this.zoom;
     this.pixelHeight = this.zoom;
+    this.penSize = options.penSize;
 
     this.canvas = document.getElementById('canvas');
     this.context = this.canvas.getContext('2d');
@@ -23,7 +24,34 @@ export default class ImageCanvas {
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
     addMouseListeners(this.canvas, this.zoom);
+    document.getElementById('list-penSize').addEventListener('click', () => this.changePenSize());
   }
+
+  changePenSize() {
+    this.penSize = +document.querySelector('input[name="penSize"]:checked').value;
+  }
+
+  fillCanvas() {
+    const currentColor = this.palette.getCurrentColor();
+    const pixelsArray = this.pixelStorage.getArrayPixels();
+    for (let i = 0; i < pixelsArray.length; i += 1) {
+      if (pixelsArray[i]) {
+        pixelsArray[i].color = currentColor;
+      }
+    }
+  }
+
+  // drawRectangle(currentPixel, currentColor) {
+  //   const xStart = currentPixel.x;
+  //   const yStart = currentPixel.y;
+  //   const xEnd = mouseProperties.x;
+  //   const yEnd = mouseProperties.y;
+  //   this.context.beginPath();
+  //   this.context.lineWidth = this.pixelWidth;
+  //   this.context.strokeStyle = currentColor;
+  //   this.context.rect(xStart, yStart, xEnd, yEnd);
+  //   this.context.stroke();
+  // }
 
   static checkMouseInPixel(currentPixel) {
     const isInWidth = (mouseProperties.x >= currentPixel.x)
@@ -35,14 +63,21 @@ export default class ImageCanvas {
     return isInWidth && isInHeight;
   }
 
-  fillCanvas() {
-    const currentColor = this.palette.getCurrentColor();
-    const pixelsArray = this.pixelStorage.getArrayPixels();
-    for (let i = 0; i < pixelsArray.length; i += 1) {
-      if (pixelsArray[i]) {
-        pixelsArray[i].color = currentColor;
-      }
-    }
+  paintPenSize2x(x, y, currentColor) {
+    const currentPixelTop = this.pixelStorage.getPixel(x, y + 1);
+    const currentPixelTopLeft = this.pixelStorage.getPixel(x - 1, y + 1);
+    const currentPixelleft = this.pixelStorage.getPixel(x - 1, y);
+    // currentPixelTop.mouseOver = true;
+    // currentPixelTopLeft.mouseOver = true;
+    // currentPixelleft.mouseOver = true;
+
+    currentPixelTop.color = currentColor;
+    currentPixelTopLeft.color = currentColor;
+    currentPixelleft.color = currentColor;
+
+    this.pixelStorage.setPixel(x, y + 1, currentPixelTop);
+    this.pixelStorage.setPixel(x - 1, y + 1, currentPixelTopLeft);
+    this.pixelStorage.setPixel(x - 1, y, currentPixelleft);
   }
 
   update() {
@@ -56,18 +91,31 @@ export default class ImageCanvas {
           currentPixel.mouseOver = true;
           if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
             currentPixel.selected = true;
+            const currentColor = this.palette.getCurrentColor();
             const curentTool = this.tool.getCurrentTool();
+
             if (curentTool === 'tool-pen') {
-              currentPixel.color = this.palette.getCurrentColor();
+              currentPixel.color = currentColor;
               this.pixelStorage.setPixel(x, y, currentPixel);
+
+              if (this.penSize === 2) {
+                this.paintPenSize2x(x, y, currentColor);
+              }
             } else if (curentTool === 'tool-eraser') {
               currentPixel.color = '#ffffff';
               this.pixelStorage.setPixel(x, y, currentPixel);
+
+              if (this.penSize === 2) {
+                this.paintPenSize2x(x, y, '#ffffff');
+              }
             } else if (curentTool === 'tool-color-picker') {
               this.palette.setCurrentColor(currentPixel.color);
             } else if (curentTool === 'tool-paint-bucket') {
               this.fillCanvas();
             }
+            // else if (curentTool === 'tool-rectangle') {
+            //   this.drawRectangle(currentPixel, currentColor);
+            // }
           }
         }
       }
@@ -83,9 +131,6 @@ export default class ImageCanvas {
         this.context.fillStyle = currentPixel.color;
         this.context.fillRect(currentPixel.x, currentPixel.y,
           this.pixelWidth, this.pixelHeight);
-        // if (currentPixel.selected) {
-
-        // }
 
         if (currentPixel.mouseOver) {
           this.context.fillStyle = 'rgba(0,0,0,0.2)';

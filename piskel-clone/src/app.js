@@ -5,14 +5,17 @@ import Palette from './screens/tools/Palette';
 import Preview from './screens/preview/Preview';
 import Tool from './screens/tools/Tool';
 
+
 const app = {
   imageCanvas: undefined,
+  frame: undefined,
   preview: undefined,
   defaultOptions: {
-    canvasSize: 32,
-    zoom: 10,
+    canvasSize: 64,
+    zoom: 5,
     currentColor: '#00ccffff',
     currentTool: 'tool-pen',
+    penSize: 2,
   },
 
   init(options) {
@@ -22,9 +25,9 @@ const app = {
     this.imageCanvas = new ImageCanvas(options, pixelStorage, palette, tool);
     this.preview = new Preview(pixelStorage);
 
-    document.getElementById('cavasZoom').innerHTML = `zoom:  ${options.zoom}`;
-    document.getElementById('canvasSize').innerHTML = `canvas size :  ${options.canvasSize} x ${options.canvasSize}`;
-    document.getElementById('mouseCoordinates').innerHTML = 'coordinates x/y:  0 x 0 ';
+    document.getElementById('cavasZoomInfo').innerHTML = `zoom:  ${options.zoom}`;
+    document.getElementById('canvasSizeInfo').innerHTML = `canvas size :  ${options.canvasSize} x ${options.canvasSize}`;
+    document.getElementById('mouseCoordinatesInfo').innerHTML = 'coordinates x/y:  0 x 0 ';
 
     document.getElementById('resize_btn').addEventListener('click', () => {
       const newOptions = options;

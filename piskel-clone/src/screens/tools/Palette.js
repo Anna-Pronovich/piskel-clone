@@ -1,8 +1,8 @@
 import Color from '../../../node_modules/vanilla-picker';
 
 export default class Palette {
-  constructor(options) {
-    this.currentColor = options;
+  constructor(defaultColor) {
+    this.currentColor = defaultColor;
     this.previousColor = 'transparent';
     const palette = document.getElementById('palette');
     const picker = new Color(palette);
