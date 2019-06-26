@@ -1,7 +1,7 @@
 @import './screens/canvas/canvas.css';
 @import './screens/tools/tools-bar.css';
-@import './screens/preview/preview.css';
-/* @import './components/frames-list/frames.css'; */
+/* @import './screens/preview/preview.css'; */
+@import './components/frames-list/frames.css';
 
 body {
   height: 100vh;

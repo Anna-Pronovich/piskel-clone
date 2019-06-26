@@ -1,5 +1,11 @@
+import FramesList from "../../components/frames-list/FramesList";
+
+// import FramesList from '../../components/frames-list/FramesList'
 export default class Preview {
-  constructor(pixelStorage) {
+  constructor(framesList) {
+
+    // this.framesList = new FramesList();
+    // this.lidt = this.framesList.getFramesList();
     this.pixelStorage = pixelStorage;
 
     this.pixelsInCanvasWidth = this.pixelStorage.pixelsInWidth;

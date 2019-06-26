@@ -15,7 +15,7 @@ export default class ImageCanvas {
     this.pixelWidth = this.pixelStorage.getPixelSize();
     this.pixelHeight = this.pixelStorage.getPixelSize();
 
-    this.canvas = document.getElementById('canvas');
+    this.canvas = document.getElementById('canvas-main');
     this.context = this.canvas.getContext('2d');
     this.canvas.width = this.pixelsInWidth * this.pixelWidth;
     this.canvas.height = this.pixelsInHeight * this.pixelHeight;

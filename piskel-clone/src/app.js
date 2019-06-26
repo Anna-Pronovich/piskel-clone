@@ -1,8 +1,8 @@
 import './index.css';
 import PixelStorage from './screens/canvas/PixelStorage';
 import ImageCanvas from './screens/canvas/ImageCanvas';
-import Preview from './screens/preview/Preview';
-// import Frame from './components/frames-list/Frames';
+import FramesList from './components/frames-list/FramesList';
+// import Preview from './screens/preview/Preview';
 
 class App {
   constructor() {
@@ -12,8 +12,7 @@ class App {
     this.pixelStorage = null;
     this.imageCanvas = null;
 
-    // this.frame = null;
-    this.preview = null;
+    this.framesList = new FramesList();
 
     document.getElementById('canvasZoomInfo').innerHTML = `zoom:  ${this.zoom}`;
     document.getElementById('canvasSizeInfo').innerHTML = `canvas size :
@@ -21,13 +20,22 @@ class App {
     document.getElementById('mouseCoordinatesInfo').innerHTML = 'coordinates x/y:  0 x 0 ';
 
     document.getElementById('resize_btn').addEventListener('click', () => this.resiseCanvas());
+    document.getElementById('add-frame_btn').addEventListener('click', () => this.addNewFrame());
   }
 
   init() {
     this.pixelStorage = new PixelStorage(this.canvasSize, this.zoom);
     this.imageCanvas = new ImageCanvas(this.pixelStorage);
-    // this.frame = new Frame(this.pixelStorage);
-    this.preview = new Preview(this.pixelStorage);
+    this.framesList.setCurrentPixelStorage(this.pixelStorage);
+    this.framesList.drawImageInFrame();
+  }
+
+  addNewFrame() {
+    this.framesList.updateFramesStorage();
+    this.framesList.removeActiveClass();
+    this.framesList.drawFrame();
+    this.framesList.updateActiveElements();
+    this.init();
   }
 
   resiseCanvas() {
@@ -40,8 +48,8 @@ class App {
 
   update() {
     this.imageCanvas.update();
-    this.preview.update();
-    // this.frame.updateCanvasInFrame();
+    this.framesList.update();
+    // this.preview.update();
   }
 
   render() {
