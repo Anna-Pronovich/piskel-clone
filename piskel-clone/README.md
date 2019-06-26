@@ -17,5 +17,10 @@
 
 | Start time | End time | Time spent |  Feature      |
 |------------|----------|------------|---------------|
-| Jun 13     | Jun 15   |     8h     |  base structure of the project|
-| Jun 15     | Jun 18   |            |  landing page, canvas implementation |
+| June 13     | June 15   |     8h     |  base structure of the project|
+| June 15     | June 18   |     12h      |  landing page, canvas implementation |
+| June 19| June 20| 12h | implementation of the palette, change the structure of project|
+|June 21 | June 23 | 10h | implementation of the tool (pen with different size, bucket, eraser, color-piker), fix some bugs|
+|June 24 | June 26| 20h| change structure of the project, implementation list of frames with function of adding and deleting frame|
+
+Total: 62h.
