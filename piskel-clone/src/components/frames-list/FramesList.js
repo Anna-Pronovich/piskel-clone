@@ -13,6 +13,7 @@ export default class FramesList {
     this.updateActiveElements();
 
     this.containerFramesList.addEventListener('click', event => this.frameManagment(event));
+    // this.containerFramesList.addEventListener('click', event => this.frameManagment(event));
   }
 
   drawFrame() {
@@ -21,18 +22,32 @@ export default class FramesList {
                 <button class="number-frame"></button>
                 <button class="tool-tip_delete" data-title-action="delete"></button>
                 <button class="tool-tip_copy"  data-title-action="clone"></button>
-            </div>`;
+                </div>`;
     this.containerFramesList.insertAdjacentHTML('beforeend', frame);
-  }
-
-  updateActiveElements() {
-    const allActiveFrame = this.containerFramesList.getElementsByClassName('active');
-    this.currentActiveFrame = allActiveFrame[0];
-    this.currentActiveCanvas = this.currentActiveFrame.getElementsByTagName('canvas')[0];
   }
 
   setCurrentPixelStorage(pixelStorage) {
     this.currentPixelStorage = pixelStorage;
+  }
+
+  updateActiveElements() {
+    const allActiveFrame = this.containerFramesList.getElementsByClassName('active');
+    const frames = document.querySelectorAll('.frame');
+    const setActiveCanvas = (elem) => {
+      this.currentActiveCanvas = elem.getElementsByTagName('canvas')[0];
+    };
+
+    this.currentActiveFrame = allActiveFrame[0];
+
+    if (!this.currentActiveFrame) { // ----if we delete active frame----
+      const lastElem = [...frames][frames.length - 1];
+      lastElem.className += ' active';
+      setActiveCanvas(lastElem);
+    } else {
+      this.currentActiveCanvas = this.currentActiveFrame.getElementsByTagName('canvas')[0];
+    }
+
+    console.log('in update', this.currentActiveFrame);
   }
 
   drawImageInFrame() {
@@ -43,29 +58,6 @@ export default class FramesList {
     this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
   }
 
-  changeActiveFrame() {
-    const setActiveCanvas = (elem) => {
-      this.currentActiveCanvas = elem.getElementsByTagName('canvas')[0];
-    };
-    const frames = document.querySelectorAll('.frame');
-
-    if (!this.currentActiveFrame) { // ----if we delete active frame----
-      const lastElem = [...frames][frames.length - 1];
-      lastElem.className += ' active';
-      setActiveCanvas(lastElem);
-      this.updateActiveElements();
-    }
-
-    for (let i = 0; i < frames.length; i += 1) {
-      frames[i].addEventListener('click', function clickFrame() {
-        this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
-        this.className += ' active';
-        // setActiveCanvas(this);
-        this.updateActiveElements();
-      });
-    }
-  }
-
   removeAllActiveState() {
     const allActiveFrame = this.containerFramesList.getElementsByClassName('active');
     if (allActiveFrame[0]) {
@@ -73,18 +65,33 @@ export default class FramesList {
     }
   }
 
+  changeActiveClass() {
+    const frames = document.querySelectorAll('.frame');
+
+    for (let i = 0; i < frames.length; i += 1) {
+      frames[i].addEventListener('click', function clickFrame() {
+        console.log(this.currentActiveFrame);
+        this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
+        this.className += ' active';
+        this.updateActiveElements();
+      });
+    }
+  }
+
   frameManagment(event) {
     const clickedElem = event.target;
     const frameClickedElem = clickedElem.parentNode;
-    console.log('frameClickedElem ', frameClickedElem);
 
     if (clickedElem.classList.contains('tool-tip_delete')
       && (this.containerFramesList.childNodes.length > 1)) {
       this.containerFramesList.removeChild(frameClickedElem);
-      this.changeActiveFrame();
+        //нужно удалить его пиксель сторадж из  фрейм лист сторадж
+      this.updateActiveElements();
     } else if (clickedElem.classList.contains('tool-tip_copy')) {
       const cloneFrame = frameClickedElem.cloneNode(true);
-      this.removeAllActiveState();
+      //нужно добавить в локал сорадж
+      this.removeActiveClass();
+      this.updateActiveElements();
 
       const contextClickedElem = frameClickedElem.getElementsByClassName('canvas-in-frame')[0];
       const activeCanvas = cloneFrame.getElementsByClassName('canvas-in-frame')[0];
@@ -92,7 +99,9 @@ export default class FramesList {
       contextInFrame.drawImage(contextClickedElem, 0, 0);
 
       this.containerFramesList.appendChild(cloneFrame);
-      this.changeActiveFrame();
+      // this.changeActiveClass();
+    } else {
+      this.changeActiveClass();
     }
   }
 

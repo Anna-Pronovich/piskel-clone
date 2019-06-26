@@ -2,7 +2,7 @@ import './index.css';
 import PixelStorage from './screens/canvas/PixelStorage';
 import ImageCanvas from './screens/canvas/ImageCanvas';
 import FramesList from './components/frames-list/FramesList';
-// import Preview from './screens/preview/Preview';
+import Preview from './screens/preview/Preview';
 
 class App {
   constructor() {
@@ -13,6 +13,7 @@ class App {
     this.imageCanvas = null;
 
     this.framesList = new FramesList();
+    this.preview = null;
 
     document.getElementById('canvasZoomInfo').innerHTML = `zoom:  ${this.zoom}`;
     document.getElementById('canvasSizeInfo').innerHTML = `canvas size :
@@ -26,6 +27,7 @@ class App {
   init() {
     this.pixelStorage = new PixelStorage(this.canvasSize, this.zoom);
     this.imageCanvas = new ImageCanvas(this.pixelStorage);
+    this.preview = new Preview();
     this.framesList.setCurrentPixelStorage(this.pixelStorage);
     this.framesList.drawImageInFrame();
   }

@@ -1,36 +1,51 @@
-import FramesList from "../../components/frames-list/FramesList";
-
-// import FramesList from '../../components/frames-list/FramesList'
 export default class Preview {
-  constructor(framesList) {
-
-    // this.framesList = new FramesList();
-    // this.lidt = this.framesList.getFramesList();
-    this.pixelStorage = pixelStorage;
-
-    this.pixelsInCanvasWidth = this.pixelStorage.pixelsInWidth;
-    this.pixelsInCanvasHeight = this.pixelStorage.pixelsInHeight;
-
+  constructor() {
     this.canvasPreview = document.getElementById('canvas-preview');
-    this.canvasPreview.width = this.pixelsInCanvasWidth;
-    this.canvasPreview.height = this.pixelsInCanvasHeight;
+    this.canvasPreview.width = 150;
+    this.canvasPreview.height = 150;
     this.contextPreview = this.canvasPreview.getContext('2d');
-
-    this.cachePreview = null;
+    this.update();
   }
 
-  update() {
-    this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+  // update() {
+  //   let canvases = document.getElementsByClassName('canvas-in-frame');
+  //   const arrayCanvases = [...canvases];
+  //   // console.log(list);
+  //   for (let i = 0; i < arrayCanvases.length; i += 1) {
+  //     // const currentCanvas = list[i];
+  //     // console.log('currentCanvas', currentCanvas);
+  //     this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+  //     this.contextPreview.drawImage(arrayCanvases[i], 0, 0);
+  //   }
 
-    for (let y = 1; y <= this.pixelsInCanvasHeight; y += 1) {
-      for (let x = 1; x <= this.pixelsInCanvasWidth; x += 1) {
-        const currentPixel = this.pixelStorage.getPixel(x, y);
-        this.contextPreview.fillStyle = currentPixel.color;
-        this.contextPreview.fillRect((0 + x - 1), (0 + y - 1), 2, 2);
-      }
+  // }
+  update() {
+    const drawReview = (canvasInFrame) => {
+      this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+      this.contextPreview.drawImage(canvasInFrame, 0, 0);
     }
 
-    this.cachePreview = this.contextPreview.getImageData(0, 0,
-      this.canvasPreview.width, this.canvasPreview.height);
+    let count = 0;
+    let fps = 1;
+
+    setInterval(() => {
+      const canvases = document.getElementsByClassName('canvas-in-frame');
+      const arrayCanvases = [...canvases];
+      if (count === arrayCanvases.length) {
+        count = 0;
+      }
+      const canvas = arrayCanvases[count];
+      drawReview(canvas);
+      count += 1;
+    }, 1000 / fps);
+
+    const slider = document.getElementById('fpsRange');
+    const output = document.getElementById('fpsValue');
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+      fps = this.value;
+    };
   }
 }
