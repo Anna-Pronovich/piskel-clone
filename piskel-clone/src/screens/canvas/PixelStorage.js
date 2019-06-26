@@ -52,8 +52,8 @@ export default class PixelStorage {
             selected: false,
             x: ((row - 1) * this.pixelWidth),
             y: ((col - 1) * this.pixelHeight),
-            h: (this.pixelHeight - 1),
-            w: (this.pixelWidth - 1),
+            h: (this.pixelHeight),
+            w: (this.pixelWidth),
           },
         );
       }

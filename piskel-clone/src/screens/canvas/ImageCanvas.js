@@ -3,7 +3,7 @@ import Palette from '../tools/Palette';
 import Tool from '../tools/Tool';
 
 export default class ImageCanvas {
-  constructor(pixelStorage) {
+  constructor(pixelStorage, zoom) {
     this.palette = new Palette();
     this.tool = new Tool();
 
@@ -25,9 +25,13 @@ export default class ImageCanvas {
 
     this.canvasGrid = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
+    this.zoom = zoom;
     addMouseListeners(this.canvas, this.zoom);
   }
 
+  getPixelStorage() {
+    return this.pixelStorage;
+  }
 
   getCanvassize() {
     return this.pixelsInWidth;
@@ -67,6 +71,7 @@ export default class ImageCanvas {
     this.pixelStorage.setPixel(x - 1, y, currentPixelleft);
   }
 
+
   update() {
     for (let y = 1; y <= this.pixelsInHeight; y += 1) {
       for (let x = 1; x <= this.pixelsInWidth; x += 1) {
@@ -78,7 +83,6 @@ export default class ImageCanvas {
           currentPixel.mouseOver = true;
           if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
             currentPixel.selected = true;
-
             const currentColor = this.palette.getCurrentColor();
             const curentTool = this.tool.getCurrentTool();
             const penSize = this.tool.getPenSize();
@@ -102,6 +106,28 @@ export default class ImageCanvas {
             } else if (curentTool === 'tool-paint-bucket') {
               this.fillCanvas();
             }
+            // else if (curentTool === 'tool-rectangle') {
+            //   let dx = Math.abs(mouseProperties.x - x);
+            //   let dy = Math.abs(mouseProperties.y - y);
+            //   let sx = (x < mouseProperties.x) ? 1 : -1;
+            //   let sy = (y < mouseProperties.y) ? 1 : -1;
+            //   let err = dx - dy;
+
+            //   while (!((x == mouseProperties.x) && (y == mouseProperties.y))) {
+            //     console.log('I AM HERE')
+            //     let e2 = err << 1;
+            //     if (e2 > -dy) {
+            //       err -= dy;
+            //       x += sx;
+            //     }
+            //     if (e2 < dx) {
+            //       err += dx;
+            //       y += sy;
+            //     }
+            //     // Set coordinates
+            //     this.pixelStorage.setPixel(x, y, currentColor);
+            //   }
+            // }
           }
         }
       }

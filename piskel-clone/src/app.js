@@ -26,7 +26,7 @@ class App {
 
   init() {
     this.pixelStorage = new PixelStorage(this.canvasSize, this.zoom);
-    this.imageCanvas = new ImageCanvas(this.pixelStorage);
+    this.imageCanvas = new ImageCanvas(this.pixelStorage, this.zoom);
     this.preview = new Preview();
     this.framesList.setCurrentPixelStorage(this.pixelStorage);
     this.framesList.drawImageInFrame();

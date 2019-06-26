@@ -15,6 +15,10 @@ export default class Frame {
     this.cacheFrame = null;
   }
 
+  getPixelStorage() {
+    return this.pixelStorage;
+  }
+
   setZoomInFrame() {
     if (this.pixelsInCanvasWidth === 32) {
       this.zoomInFrame = 3;
