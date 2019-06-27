@@ -8,7 +8,6 @@ export default class Palette {
 
     const picker = new Color(palette);
     picker.onChange = (color) => {
-      window.console.log('color.rgbaString: ', color.rgbaString);
       palette.style.background = color.rgbaString;
       this.updatePreviousColor();
       this.currentColor = color.rgbaString;

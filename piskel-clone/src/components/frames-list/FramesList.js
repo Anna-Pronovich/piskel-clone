@@ -7,27 +7,41 @@ export default class FramesList {
     this.frame = null;
     this.currentActiveFrame = null;
     this.currentActiveCanvas = null;
+    this.imageCanvas = null;
 
+    this.count = 0;
     this.containerFramesList = document.getElementById('conteiner-frames_list');
     this.drawFrame();
     this.updateActiveElements();
 
     this.containerFramesList.addEventListener('click', event => this.frameManagment(event));
-    // this.containerFramesList.addEventListener('click', event => this.frameManagment(event));
   }
 
   drawFrame() {
-    const frame = `<div class="frame active">
+    const frame = `<div class="frame active" id="${this.count}">
                 <canvas class="canvas-in-frame"></canvas>
                 <button class="number-frame"></button>
                 <button class="tool-tip_delete" data-title-action="delete"></button>
                 <button class="tool-tip_copy"  data-title-action="clone"></button>
                 </div>`;
     this.containerFramesList.insertAdjacentHTML('beforeend', frame);
+    this.count += 1;
   }
 
   setCurrentPixelStorage(pixelStorage) {
     this.currentPixelStorage = pixelStorage;
+  }
+
+  setImageCanvas(imageCanvas) {
+    this.imageCanvas = imageCanvas;
+  }
+
+  drawImageInFrame() {
+    this.frame = new Frame(this.currentPixelStorage, this.currentActiveCanvas);
+  }
+
+  updateFramesStorage() {
+    this.framesStorage.push(this.frame);
   }
 
   updateActiveElements() {
@@ -38,8 +52,6 @@ export default class FramesList {
       const [activeCanvas] = elem.getElementsByTagName('canvas');
       this.currentActiveCanvas = activeCanvas;
       this.currentActiveFrame = elem;
-      window.console.log('new this.currentActiveCanvas: ', this.currentActiveCanvas);
-      window.console.log('new this.currentActiveFrame: ', this.currentActiveFrame);
     };
 
     if (!firstActiveFrame) { // ----if we delete active frame----
@@ -50,66 +62,48 @@ export default class FramesList {
       this.currentActiveFrame = firstActiveFrame;
       const [activeCanvas] = this.currentActiveFrame.getElementsByTagName('canvas');
       this.currentActiveCanvas = activeCanvas;
-      // this.currentPixelStorage = activeCanvas.getPixelStorage();
-      window.console.log('new this.currentActiveCanvas: ', this.currentActiveCanvas);
-      window.console.log('new this.currentActiveFrame: ', this.currentActiveFrame);
     }
-
-    window.console.log('in update', this.currentActiveFrame);
-  }
-
-  drawImageInFrame() {
-    this.frame = new Frame(this.currentPixelStorage, this.currentActiveCanvas);
   }
 
   removeActiveClass() {
-    window.console.log('removeActiveClass before: ', this.currentActiveFrame);
     this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
-    window.console.log('removeActiveClass after: ', this.currentActiveFrame);
-  }
-
-  removeAllActiveState() {
-    const allActiveFrames = this.containerFramesList.getElementsByClassName('active');
-    if (allActiveFrames[0]) {
-      allActiveFrames[0].className = allActiveFrames[0].className.replace(' active', '');
-    }
   }
 
   frameManagment(event) {
     const clickedElem = event.target;
     const frameClickedElem = clickedElem.parentNode;
+    const idFrame = +frameClickedElem.id;
+    const frameOfClickedElem = this.framesStorage[idFrame];
 
     if (clickedElem.classList.contains('tool-tip_delete')
       && (this.containerFramesList.childNodes.length > 1)) {
+      delete this.framesStorage[idFrame];
       this.containerFramesList.removeChild(frameClickedElem);
-      // нужно удалить его пиксель сторадж из  фрейм лист сторадж
+      this.updateActiveElements();
     } else if (clickedElem.classList.contains('tool-tip_copy')) {
-      window.console.log('copy: ', frameClickedElem);
-
-      const cloneFrame = frameClickedElem.cloneNode(true);
-      // нужно добавить в локал сторадж
-      this.removeActiveClass();
       const contextClickedElem = frameClickedElem.getElementsByClassName('canvas-in-frame')[0];
-      const activeCanvas = cloneFrame.getElementsByClassName('canvas-in-frame')[0];
-      const contextInFrame = activeCanvas.getContext('2d');
-      contextInFrame.drawImage(contextClickedElem, 0, 0);
+      const cloneFrame = frameClickedElem.cloneNode(true);
+      const cloneCanvas = cloneFrame.getElementsByClassName('canvas-in-frame')[0];
+      const contextCloneFrame = cloneCanvas.getContext('2d');
+      contextCloneFrame.drawImage(contextClickedElem, 0, 0);
+      this.containerFramesList.insertBefore(cloneFrame, frameClickedElem);
 
-      this.containerFramesList.appendChild(cloneFrame);
+      if (cloneFrame.classList.contains('active')) {
+        cloneFrame.className = cloneFrame.className.replace(' active', '');
+      }
+
+      cloneFrame.setAttribute('id', `${this.count}`);
+      this.count += 1;
+      this.framesStorage.push(frameOfClickedElem);
     } else {
-      window.console.log('change active frame by ckick, frameClickedElem: ', frameClickedElem);
       this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
       frameClickedElem.className += ' active';
+
+      const pixelStorageClikedElem = frameOfClickedElem.getPixelStorage();
+      this.imageCanvas.setPixelSrorage(pixelStorageClikedElem);
+      this.frame.setPixelStorage(pixelStorageClikedElem);
+      this.updateActiveElements();
     }
-    this.updateActiveElements();
-  }
-
-  updateFramesStorage() {
-    this.framesStorage.push(this.currentPixelStorage);
-    // window.console.log('this.framesList ', this.framesStorage);
-  }
-
-  getFramesList() {
-    return this.framesStorage;
   }
 
   update() {

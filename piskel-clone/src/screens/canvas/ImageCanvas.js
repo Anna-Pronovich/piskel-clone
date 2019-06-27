@@ -29,6 +29,10 @@ export default class ImageCanvas {
     addMouseListeners(this.canvas, this.zoom);
   }
 
+  setPixelSrorage(newPixelStorage) {
+    this.pixelStorage = newPixelStorage;
+  }
+
   getPixelStorage() {
     return this.pixelStorage;
   }

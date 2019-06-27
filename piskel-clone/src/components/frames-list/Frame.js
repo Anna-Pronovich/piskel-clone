@@ -6,13 +6,16 @@ export default class Frame {
     this.zoomInFrame = 1;
     this.setZoomInFrame();
 
-    // this.canvasFrame = document.getElementById('canvas-in-frame');
     this.canvasFrame = currentCanvas;
     this.canvasFrame.width = this.pixelsInCanvasWidth * this.zoomInFrame;
     this.canvasFrame.height = this.pixelsInCanvasHeight * this.zoomInFrame;
     this.contextFrame = this.canvasFrame.getContext('2d');
 
     this.cacheFrame = null;
+  }
+
+  setPixelStorage(newPixelStorage) {
+    this.pixelStorage = newPixelStorage;
   }
 
   getPixelStorage() {

@@ -20,10 +20,10 @@ export default class Preview {
 
   // }
   update() {
-    const drawReview = (canvasInFrame) => {
-      this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
-      this.contextPreview.drawImage(canvasInFrame, 0, 0);
-    }
+    // const drawPreview = (canvasInFrame) => {
+    //   this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+    //   this.contextPreview.drawImage(canvasInFrame, 0, 0);
+    // };
 
     let count = 0;
     let fps = 1;
@@ -35,7 +35,9 @@ export default class Preview {
         count = 0;
       }
       const canvas = arrayCanvases[count];
-      drawReview(canvas);
+      // drawPreview(canvas);
+      this.contextPreview.clearRect(0, 0, this.canvasPreview.width, this.canvasPreview.height);
+      this.contextPreview.drawImage(canvas, 0, 0);
       count += 1;
     }, 1000 / fps);
 
@@ -43,7 +45,7 @@ export default class Preview {
     const output = document.getElementById('fpsValue');
     output.innerHTML = slider.value;
 
-    slider.oninput = function () {
+    slider.oninput = function oninput() {
       output.innerHTML = this.value;
       fps = this.value;
     };

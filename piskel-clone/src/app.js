@@ -13,7 +13,7 @@ class App {
     this.imageCanvas = null;
 
     this.framesList = new FramesList();
-    this.preview = null;
+    this.preview = new Preview();
 
     document.getElementById('canvasZoomInfo').innerHTML = `zoom:  ${this.zoom}`;
     document.getElementById('canvasSizeInfo').innerHTML = `canvas size :
@@ -27,13 +27,15 @@ class App {
   init() {
     this.pixelStorage = new PixelStorage(this.canvasSize, this.zoom);
     this.imageCanvas = new ImageCanvas(this.pixelStorage, this.zoom);
-    this.preview = new Preview();
+
     this.framesList.setCurrentPixelStorage(this.pixelStorage);
+    this.framesList.setImageCanvas(this.imageCanvas);
     this.framesList.drawImageInFrame();
+    this.framesList.updateFramesStorage();
   }
 
   addNewFrame() {
-    this.framesList.updateFramesStorage();
+    // this.framesList.updateFramesStorage();
     this.framesList.removeActiveClass();
     this.framesList.drawFrame();
     this.framesList.updateActiveElements();
@@ -51,7 +53,6 @@ class App {
   update() {
     this.imageCanvas.update();
     this.framesList.update();
-    // this.preview.update();
   }
 
   render() {
