@@ -22,5 +22,5 @@
 | June 19    | June 20  |  12h | implementation of the palette, change the structure of project|
 | June 21    | June 23  |  10h | implementation of the tool (pen with different size, bucket, eraser, color-piker), fix some bugs|
 | June 24    | June 26  |  23h | change structure of the project, implementation list of frames with function of adding and deleting frame, preview|
-
-Total: 65h.
+| June 27   | June 27 | 9h | fix bugs of function delete and copy a frame, create modal window and keyboard shortcut|
+Total: 74h.

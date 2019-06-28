@@ -22,6 +22,13 @@ class App {
 
     document.getElementById('resize_btn').addEventListener('click', () => this.resiseCanvas());
     document.getElementById('add-frame_btn').addEventListener('click', () => this.addNewFrame());
+    document.addEventListener('keydown', event => this.handleKeyDown(event));
+  }
+
+  handleKeyDown(event) {
+    if (event.shiftKey && event.which === 81) {
+      this.addNewFrame();
+    }
   }
 
   init() {
@@ -76,4 +83,22 @@ class App {
 window.addEventListener('load', () => {
   const app = new App();
   app.start();
+
+
+  function toggleOpenState() {
+    let element1 = document.getElementById('modal-wrapper');
+    element1.classList.toggle('open');
+  }
+
+  function toggleBlurState() {
+    let element2 = document.getElementById('shotcuts-wrapper');
+    element2.classList.toggle('blur-it');
+  }
+
+  const btns = document.getElementsByClassName('trigger');
+  [].forEach.call(btns, (btn) => {
+    btn.addEventListener('click', toggleOpenState, false);
+    btn.addEventListener('click', toggleBlurState, false);
+  });
+
 });

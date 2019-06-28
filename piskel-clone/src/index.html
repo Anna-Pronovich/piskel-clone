@@ -16,11 +16,35 @@
     <h1>Piskel-Clone</h1>
   </header>
   <main>
+    <div id="shotcuts-wrapper">
+      <a class="shotcuts_btn trigger" href="#"></a>
+      <button id="save_btn"></button>
+    </div>
+
+    <div id="modal-wrapper">
+      <div class="modal">
+        <div class="head-modal">
+          <h2>Keyboard shotcuts</h2>
+          <a class="close_btn trigger" href="#">
+            <img src="./assets/images/close-window.png" width="25" height="25" alt="close">
+          </a>
+        </div>
+        <div class="content-modal">
+          <ul class="shortcuts-list">
+            <li><span class="shotcut">P</span>Pen tool</li>
+            <li><span class="shotcut">E</span>Eraser pen tool</li>
+            <li><span class="shotcut">B</span>Paint bucket tool</li>
+            <li><span class="shotcut">C</span>Color picker</li>
+            <li><span class="shotcut">Shift + Q</span>Add new frame</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <div class="wrapper-tools-palette">
       <div id="list-penSize">
         <p>Pen size</p>
-        <label><input type="radio" class="list-penSize_item" id="smallPen" name="penSize" value="1"
-            checked>1x</label>
+        <label><input type="radio" class="list-penSize_item" id="smallPen" name="penSize" value="1" checked>1x</label>
         <label><input type="radio" class="list-penSize_item" id="bigPen" name="penSize" value="2" checked>2x</label><br>
       </div>
       <div class="tools-container" id="tools-container">
@@ -79,6 +103,7 @@
 
   </main>
   <script src="https://unpkg.com/vanilla-picker@2"></script>
+  <!-- <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
 </body>
 
 </html>
