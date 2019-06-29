@@ -75,6 +75,39 @@ export default class ImageCanvas {
     this.pixelStorage.setPixel(x - 1, y, currentPixelleft);
   }
 
+  drawLine(x0, y0, x1, y1, color) {
+    let xStart = x0;
+    let yStart = y0;
+    const setPixel = (newX, newY) => {
+      for (let y = 1; y <= this.pixelsInHeight; y += 1) {
+        for (let x = 1; x <= this.pixelsInWidth; x += 1) {
+          const currentPixel = this.pixelStorage.getPixel(x, y);
+          if ((newX >= currentPixel.x)
+            && newX <= (currentPixel.x + currentPixel.w)
+            && (newY >= currentPixel.y)
+            && newY <= (currentPixel.y + currentPixel.h)) {
+            currentPixel.color = color;
+            this.pixelStorage.setPixel(x, y, currentPixel);
+          }
+        }
+      }
+    };
+
+    const dx = Math.abs(x1 - xStart);
+    const dy = Math.abs(y1 - yStart);
+    const sx = (xStart < x1) ? 1 : -1;
+    const sy = (yStart < y1) ? 1 : -1;
+    let err = dx - dy;
+    const continueStroke = true;
+    while (continueStroke) {
+      setPixel(xStart, yStart);
+
+      if ((xStart === x1) && (yStart === y1)) break;
+      const e2 = 2 * err;
+      if (e2 > -dy) { err -= dy; xStart += sx; }
+      if (e2 < dx) { err += dx; yStart += sy; }
+    }
+  }
 
   update() {
     for (let y = 1; y <= this.pixelsInHeight; y += 1) {
@@ -83,55 +116,48 @@ export default class ImageCanvas {
 
         currentPixel.mouseOver = false;
 
+        const currentColor = this.palette.getCurrentColor();
+        const curentTool = this.tool.getCurrentTool();
+        const penSize = this.tool.getPenSize();
+
         if (ImageCanvas.checkMouseInPixel(currentPixel)) {
           currentPixel.mouseOver = true;
-          if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
-            currentPixel.selected = true;
-            const currentColor = this.palette.getCurrentColor();
-            const curentTool = this.tool.getCurrentTool();
-            const penSize = this.tool.getPenSize();
+          if (curentTool !== 'tool-stroke') {
+            if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
+              currentPixel.selected = true;
 
-            if (curentTool === 'tool-pen') {
-              currentPixel.color = currentColor;
-              this.pixelStorage.setPixel(x, y, currentPixel);
+              if (curentTool === 'tool-pen') {
+                currentPixel.color = currentColor;
+                this.pixelStorage.setPixel(x, y, currentPixel);
 
-              if (penSize === 2) {
-                this.paintPenSize2x(x, y, currentColor);
+                if (penSize === 2) {
+                  this.paintPenSize2x(x, y, currentColor);
+                }
+              } else if (curentTool === 'tool-eraser') {
+                currentPixel.color = '#ffffff';
+                this.pixelStorage.setPixel(x, y, currentPixel);
+
+                if (penSize === 2) {
+                  this.paintPenSize2x(x, y, '#ffffff');
+                }
+              } else if (curentTool === 'tool-color-picker') {
+                this.palette.setCurrentColor(currentPixel.color);
+              } else if (curentTool === 'tool-paint-bucket') {
+                this.fillCanvas();
               }
-            } else if (curentTool === 'tool-eraser') {
-              currentPixel.color = '#ffffff';
-              this.pixelStorage.setPixel(x, y, currentPixel);
-
-              if (penSize === 2) {
-                this.paintPenSize2x(x, y, '#ffffff');
-              }
-            } else if (curentTool === 'tool-color-picker') {
-              this.palette.setCurrentColor(currentPixel.color);
-            } else if (curentTool === 'tool-paint-bucket') {
-              this.fillCanvas();
             }
-            // else if (curentTool === 'tool-rectangle') {
-            //   let dx = Math.abs(mouseProperties.x - x);
-            //   let dy = Math.abs(mouseProperties.y - y);
-            //   let sx = (x < mouseProperties.x) ? 1 : -1;
-            //   let sy = (y < mouseProperties.y) ? 1 : -1;
-            //   let err = dx - dy;
+          }
 
-            //   while (!((x == mouseProperties.x) && (y == mouseProperties.y))) {
-            //     console.log('I AM HERE')
-            //     let e2 = err << 1;
-            //     if (e2 > -dy) {
-            //       err -= dy;
-            //       x += sx;
-            //     }
-            //     if (e2 < dx) {
-            //       err += dx;
-            //       y += sy;
-            //     }
-            //     // Set coordinates
-            //     this.pixelStorage.setPixel(x, y, currentColor);
-            //   }
-            // }
+          if (curentTool === 'tool-stroke') {
+            if (mouseProperties.events.mouseover) {
+              if (mouseProperties.events.mouseup) {
+                const startPosX = mouseProperties.xStart;
+                const startPosY = mouseProperties.yStart;
+                const endPosX = mouseProperties.xEnd;
+                const endPosY = mouseProperties.yEnd;
+                this.drawLine(startPosX, startPosY, endPosX, endPosY, currentColor);
+              }
+            }
           }
         }
       }

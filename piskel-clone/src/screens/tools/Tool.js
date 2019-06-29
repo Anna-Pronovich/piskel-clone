@@ -38,26 +38,29 @@ export default class Tool {
   handleKeyDown(event) {
     const deleteActiveClass = () => {
       const current = this.parentElement.getElementsByClassName('active');
-      console.log('current', current);
       current[0].className = current[0].className.replace(' active', '');
     };
 
-    if (event.keyCode === 80) { //pen
+    if (event.keyCode === 80) {
       deleteActiveClass();
       document.getElementById('tool-pen').className += ' active';
       this.currentTool = 'tool-pen';
-    } else if (event.keyCode === 69) {  //eraser
+    } else if (event.keyCode === 69) {
       deleteActiveClass();
       document.getElementById('tool-eraser').className += ' active';
       this.currentTool = 'tool-eraser';
-    } else if (event.keyCode === 66) {  //bucket
+    } else if (event.keyCode === 66) {
       deleteActiveClass();
       document.getElementById('tool-paint-bucket').className += ' active';
       this.currentTool = 'tool-paint-bucket';
-    } else if (event.keyCode === 67) {  // color-picker
+    } else if (event.keyCode === 67) {
       deleteActiveClass();
       document.getElementById('tool-color-picker').className += ' active';
       this.currentTool = 'tool-color-picker';
+    } else if (event.keyCode === 83) {
+      deleteActiveClass();
+      document.getElementById('tool-stroke').className += ' active';
+      this.currentTool = 'tool-stroke';
     }
     return false;
   }

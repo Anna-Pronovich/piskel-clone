@@ -27,8 +27,8 @@
 #tool-eraser {
   background-image: url(../../assets/images/tool-eraser.png);
 }
-#tool-rectangle {
-  background-image: url(../../assets/images/tool-rectangle.png);
+#tool-stroke {
+  background-image: url(../../assets/images/tool-stroke.png);
 }
 
 #tool-circle {

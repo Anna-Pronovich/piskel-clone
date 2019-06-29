@@ -28,12 +28,6 @@ export default class PixelStorage {
     return this.pixelSize;
   }
 
-  // changeCanvasSize(canvasSize) {
-  //   this.pixelsInWidth = canvasSize;
-  //   this.pixelsInHeight = canvasSize;
-  //   this.reset();
-  // }
-
   getArrayPixels() {
     return this.pixels;
   }

@@ -16,7 +16,7 @@
     <h1>Piskel-Clone</h1>
   </header>
   <main>
-    <div id="shotcuts-wrapper">
+    <div id="shotcuts_btn-wrapper">
       <a class="shotcuts_btn trigger" href="#"></a>
       <button id="save_btn"></button>
     </div>
@@ -35,6 +35,7 @@
             <li><span class="shotcut">E</span>Eraser pen tool</li>
             <li><span class="shotcut">B</span>Paint bucket tool</li>
             <li><span class="shotcut">C</span>Color picker</li>
+            <li><span class="shotcut">S</span>Stroke tool</li>
             <li><span class="shotcut">Shift + Q</span>Add new frame</li>
           </ul>
         </div>
@@ -52,7 +53,7 @@
         <button class="tool_btn" id="tool-paint-bucket" title="bucket"></button>
         <button class="tool_btn" id="tool-color-picker" title="color-picker"></button>
         <button class="tool_btn" id="tool-eraser" title="eraser"></button>
-        <button class="tool_btn" id="tool-rectangle" title="rectangle"></button>
+        <button class="tool_btn" id="tool-stroke" title="stroke"></button>
         <button class="tool_btn" id="tool-circle" title="circle"></button>
       </div>
       <div class="palette-container">
@@ -75,10 +76,6 @@
     <div class="vertical-wrapper">
       <div class="preview">
         <canvas id="canvas-preview"></canvas>
-        <div class="slidecontainer">
-          <input type="range" min="1" max="24" value="1" class="slider" id="fpsRange">
-          <p>Value: <span id="fpsValue"></span></p>
-        </div>
       </div>
 
       <ul id="canvasInformation">
@@ -103,7 +100,6 @@
 
   </main>
   <script src="https://unpkg.com/vanilla-picker@2"></script>
-  <!-- <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
 </body>
 
 </html>

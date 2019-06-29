@@ -1,20 +1,19 @@
 const mouseProperties = {
   x: 0,
   y: 0,
+  xStart: 0,
+  yStart: 0,
+  xEnd: 0,
+  yEnd: 0,
 
   events: {
     mouseover: false,
     mouseout: false,
     mousedown: false,
     mousemove: false,
+    mouseup: true,
     mouseButton: 0,
-  },
-  previousEvents: {
-    mouseover: false,
-    mouseout: false,
-    mousedown: false,
-    mousemove: false,
-    mouseButton: 0,
+    dragging: false,
   },
 };
 
@@ -54,17 +53,23 @@ const addMouseListeners = (canvasElem, zoom) => {
     return false;
   });
 
-  canvasElem.addEventListener('mousedown', (e) => {
+  canvasElem.addEventListener('mousedown', function mousedown(e) {
     mouseProperties.events.mousedown = true;
     mouseProperties.events.mouseup = false;
     mouseProperties.events.mouseButton = e.which;
+    mouseProperties.events.dragging = true;
+    mouseProperties.xStart = Math.floor(e.clientX - getCoords(this).left);
+    mouseProperties.yStart = Math.floor(e.clientY - getCoords(this).top);
     return false;
   });
 
-  canvasElem.addEventListener('mouseup', () => {
+  canvasElem.addEventListener('mouseup', function mouseup(e) {
     mouseProperties.events.mousedown = false;
     mouseProperties.events.mouseup = true;
     mouseProperties.events.mouseButton = 0;
+    mouseProperties.events.dragging = false;
+    mouseProperties.xEnd = Math.floor(e.clientX - getCoords(this).left);
+    mouseProperties.yEnd = Math.floor(e.clientY - getCoords(this).top);
     return false;
   });
 

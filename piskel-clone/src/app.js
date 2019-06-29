@@ -86,13 +86,13 @@ window.addEventListener('load', () => {
 
 
   function toggleOpenState() {
-    let element1 = document.getElementById('modal-wrapper');
-    element1.classList.toggle('open');
+    const modalWindow = document.getElementById('modal-wrapper');
+    modalWindow.classList.toggle('open');
   }
 
   function toggleBlurState() {
-    let element2 = document.getElementById('shotcuts-wrapper');
-    element2.classList.toggle('blur-it');
+    const btnShortcuts = document.getElementById('shotcuts_btn-wrapper');
+    btnShortcuts.classList.toggle('blur-it');
   }
 
   const btns = document.getElementsByClassName('trigger');
@@ -100,5 +100,4 @@ window.addEventListener('load', () => {
     btn.addEventListener('click', toggleOpenState, false);
     btn.addEventListener('click', toggleBlurState, false);
   });
-
 });
