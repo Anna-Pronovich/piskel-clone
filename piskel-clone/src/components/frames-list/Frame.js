@@ -10,8 +10,6 @@ export default class Frame {
     this.canvasFrame.width = this.pixelsInCanvasWidth * this.zoomInFrame;
     this.canvasFrame.height = this.pixelsInCanvasHeight * this.zoomInFrame;
     this.contextFrame = this.canvasFrame.getContext('2d');
-
-    this.cacheFrame = null;
   }
 
   setPixelStorage(newPixelStorage) {
@@ -41,8 +39,5 @@ export default class Frame {
           this.zoomInFrame, this.zoomInFrame);
       }
     }
-
-    this.cacheFrame = this.contextFrame.getImageData(0, 0,
-      this.canvasFrame.width, this.canvasFrame.height);
   }
 }

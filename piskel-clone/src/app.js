@@ -6,7 +6,7 @@ import Preview from './screens/preview/Preview';
 
 class App {
   constructor() {
-    this.zoom = 5;
+    this.zoom = 6;
     this.canvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
 
     this.pixelStorage = null;
@@ -20,7 +20,7 @@ class App {
       ${this.canvasSize} x ${this.canvasSize}`;
     document.getElementById('mouseCoordinatesInfo').innerHTML = 'coordinates x/y:  0 x 0 ';
 
-    document.getElementById('resize_btn').addEventListener('click', () => this.resiseCanvas());
+    document.getElementById('resize_btn').addEventListener('click', () => this.resizeCanvas());
     document.getElementById('add-frame_btn').addEventListener('click', () => this.addNewFrame());
     document.addEventListener('keydown', event => this.handleKeyDown(event));
   }
@@ -42,16 +42,15 @@ class App {
   }
 
   addNewFrame() {
-    // this.framesList.updateFramesStorage();
     this.framesList.removeActiveClass();
     this.framesList.drawFrame();
     this.framesList.updateActiveElements();
     this.init();
   }
 
-  resiseCanvas() {
+  resizeCanvas() {
     const choosingCanvasSize = +document.querySelector('input[name="canvasSize"]:checked').value;
-    if (choosingCanvasSize !== this.imageCanvas.getCanvassize()) {
+    if (choosingCanvasSize !== this.imageCanvas.getCanvasSize()) {
       this.canvasSize = choosingCanvasSize;
       this.init(this.canvasSize, this.zoom);
     }

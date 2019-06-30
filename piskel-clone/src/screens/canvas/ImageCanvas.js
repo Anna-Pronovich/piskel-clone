@@ -37,7 +37,7 @@ export default class ImageCanvas {
     return this.pixelStorage;
   }
 
-  getCanvassize() {
+  getCanvasSize() {
     return this.pixelsInWidth;
   }
 
@@ -134,40 +134,40 @@ export default class ImageCanvas {
         currentPixel.mouseOver = false;
 
         const currentColor = this.palette.getCurrentColor();
-        const curentTool = this.tool.getCurrentTool();
+        const currentTool = this.tool.getCurrentTool();
         const penSize = this.tool.getPenSize();
 
         if (ImageCanvas.checkMouseInPixel(currentPixel)) {
           currentPixel.mouseOver = true;
-          if (curentTool !== 'tool-stroke') {
+          if (currentTool !== 'tool-stroke') {
             if (mouseProperties.events.mousedown && mouseProperties.events.mouseButton === 1) {
               currentPixel.selected = true;
 
-              if (curentTool === 'tool-pen') {
+              if (currentTool === 'tool-pen') {
                 currentPixel.color = currentColor;
                 this.pixelStorage.setPixel(x, y, currentPixel);
 
                 if (penSize === 2) {
                   this.paintPenSize2x(x, y, currentColor);
                 }
-              } else if (curentTool === 'tool-eraser') {
+              } else if (currentTool === 'tool-eraser') {
                 currentPixel.color = '#ffffff';
                 this.pixelStorage.setPixel(x, y, currentPixel);
 
                 if (penSize === 2) {
                   this.paintPenSize2x(x, y, '#ffffff');
                 }
-              } else if (curentTool === 'tool-color-picker') {
+              } else if (currentTool === 'tool-color-picker') {
                 this.palette.setCurrentColor(currentPixel.color);
-              } else if (curentTool === 'tool-paint-bucket') {
+              } else if (currentTool === 'tool-paint-bucket') {
                 this.fillCanvas();
-              } else if (curentTool === 'tool-custom') {
+              } else if (currentTool === 'tool-custom') {
                 this.customShape(x, y, currentColor);
               }
             }
           }
 
-          if (curentTool === 'tool-stroke') {
+          if (currentTool === 'tool-stroke') {
             if (mouseProperties.events.mouseover) {
               if (mouseProperties.events.mouseup) {
                 const startPosX = mouseProperties.xStart;

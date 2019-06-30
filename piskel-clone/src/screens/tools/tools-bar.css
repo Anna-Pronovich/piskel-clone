@@ -18,15 +18,19 @@
 #tool-pen {
   background-image: url(../../assets/images/tool-pen.png);
 }
+
 #tool-paint-bucket {
   background-image: url(../../assets/images/tool-paint-bucket.png);
 }
+
 #tool-color-picker {
   background-image: url(../../assets/images/tool-colorpicker.png);
 }
+
 #tool-eraser {
   background-image: url(../../assets/images/tool-eraser.png);
 }
+
 #tool-stroke {
   background-image: url(../../assets/images/tool-stroke.png);
 }

@@ -24,4 +24,5 @@
 | June 24    | June 26  |  23h | change structure of the project, implementation list of frames with function of adding and deleting frame, preview|
 | June 27   | June 27 | 9h | fix bugs of function delete and copy a frame, create modal window and keyboard shortcut|
 | June 28  | June 28 | 8h | tool-stroke|
-Total: 82h.
+| June 29  | June 30 | 20h | custom tool, save button, fix bugs, refuctor, tests, PR|
+Total: 102h.

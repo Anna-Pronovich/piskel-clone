@@ -14,7 +14,7 @@ export default class FramesList {
     this.drawFrame();
     this.updateActiveElements();
 
-    this.containerFramesList.addEventListener('click', event => this.frameManagment(event));
+    this.containerFramesList.addEventListener('click', event => this.frameManagement(event));
   }
 
   drawFrame() {
@@ -54,7 +54,7 @@ export default class FramesList {
       this.currentActiveFrame = elem;
     };
 
-    if (!firstActiveFrame) { // ----if we delete active frame----
+    if (!firstActiveFrame) {
       const lastElem = [...frames][frames.length - 1];
       lastElem.className += ' active';
       setActiveCanvas(lastElem);
@@ -69,7 +69,7 @@ export default class FramesList {
     this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
   }
 
-  frameManagment(event) {
+  frameManagement(event) {
     const clickedElem = event.target;
     const frameClickedElem = clickedElem.parentNode;
     const idFrame = +frameClickedElem.id;
@@ -99,9 +99,9 @@ export default class FramesList {
       this.currentActiveFrame.className = this.currentActiveFrame.className.replace(' active', '');
       frameClickedElem.className += ' active';
 
-      const pixelStorageClikedElem = frameOfClickedElem.getPixelStorage();
-      this.imageCanvas.setPixelSrorage(pixelStorageClikedElem);
-      this.frame.setPixelStorage(pixelStorageClikedElem);
+      const pixelStorageClickedElem = frameOfClickedElem.getPixelStorage();
+      this.imageCanvas.setPixelSrorage(pixelStorageClickedElem);
+      this.frame.setPixelStorage(pixelStorageClickedElem);
       this.updateActiveElements();
     }
   }

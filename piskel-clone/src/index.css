@@ -98,6 +98,7 @@ a.shotcuts_btn {
   color: #eee;
   background: #00dcdc;
 }
+
 .head-modal h2 {
   margin: 0;
 }
@@ -138,9 +139,6 @@ a.shotcuts_btn {
   height: 40px;
   border: none;
   font: inherit;
-  /* font-size: 20px;
-  text-align: left;
-  color: inherit; */
   background-color: transparent;
   cursor: pointer;
   background-image: url(./assets/images/settings-save-white.png);

@@ -41,27 +41,36 @@ export default class Tool {
       current[0].className = current[0].className.replace(' active', '');
     };
 
-    if (event.keyCode === 80) {
+    const keyboardEvent = {
+      p: 80,
+      e: 69,
+      b: 66,
+      c: 67,
+      s: 83,
+      n: 78,
+    };
+
+    if (event.keyCode === keyboardEvent.p) {
       deleteActiveClass();
       document.getElementById('tool-pen').className += ' active';
       this.currentTool = 'tool-pen';
-    } else if (event.keyCode === 69) {
+    } else if (event.keyCode === keyboardEvent.e) {
       deleteActiveClass();
       document.getElementById('tool-eraser').className += ' active';
       this.currentTool = 'tool-eraser';
-    } else if (event.keyCode === 66) {
+    } else if (event.keyCode === keyboardEvent.b) {
       deleteActiveClass();
       document.getElementById('tool-paint-bucket').className += ' active';
       this.currentTool = 'tool-paint-bucket';
-    } else if (event.keyCode === 67) {
+    } else if (event.keyCode === keyboardEvent.c) {
       deleteActiveClass();
       document.getElementById('tool-color-picker').className += ' active';
       this.currentTool = 'tool-color-picker';
-    } else if (event.keyCode === 83) {
+    } else if (event.keyCode === keyboardEvent.s) {
       deleteActiveClass();
       document.getElementById('tool-stroke').className += ' active';
       this.currentTool = 'tool-stroke';
-    } else if (event.keyCode === 78) {
+    } else if (event.keyCode === keyboardEvent.n) {
       deleteActiveClass();
       document.getElementById('tool-custom').className += ' active';
       this.currentTool = 'tool-custom';
