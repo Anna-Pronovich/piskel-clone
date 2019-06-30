@@ -41,7 +41,7 @@ export default class Tool {
       current[0].className = current[0].className.replace(' active', '');
     };
 
-    const keyboardEvent = {
+    const keyboardSymbols = {
       p: 80,
       e: 69,
       b: 66,
@@ -50,27 +50,27 @@ export default class Tool {
       n: 78,
     };
 
-    if (event.keyCode === keyboardEvent.p) {
+    if (event.keyCode === keyboardSymbols.p) {
       deleteActiveClass();
       document.getElementById('tool-pen').className += ' active';
       this.currentTool = 'tool-pen';
-    } else if (event.keyCode === keyboardEvent.e) {
+    } else if (event.keyCode === keyboardSymbols.e) {
       deleteActiveClass();
       document.getElementById('tool-eraser').className += ' active';
       this.currentTool = 'tool-eraser';
-    } else if (event.keyCode === keyboardEvent.b) {
+    } else if (event.keyCode === keyboardSymbols.b) {
       deleteActiveClass();
       document.getElementById('tool-paint-bucket').className += ' active';
       this.currentTool = 'tool-paint-bucket';
-    } else if (event.keyCode === keyboardEvent.c) {
+    } else if (event.keyCode === keyboardSymbols.c) {
       deleteActiveClass();
       document.getElementById('tool-color-picker').className += ' active';
       this.currentTool = 'tool-color-picker';
-    } else if (event.keyCode === keyboardEvent.s) {
+    } else if (event.keyCode === keyboardSymbols.s) {
       deleteActiveClass();
       document.getElementById('tool-stroke').className += ' active';
       this.currentTool = 'tool-stroke';
-    } else if (event.keyCode === keyboardEvent.n) {
+    } else if (event.keyCode === keyboardSymbols.n) {
       deleteActiveClass();
       document.getElementById('tool-custom').className += ' active';
       this.currentTool = 'tool-custom';
