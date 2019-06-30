@@ -61,6 +61,10 @@ export default class Tool {
       deleteActiveClass();
       document.getElementById('tool-stroke').className += ' active';
       this.currentTool = 'tool-stroke';
+    } else if (event.keyCode === 78) {
+      deleteActiveClass();
+      document.getElementById('tool-custom').className += ' active';
+      this.currentTool = 'tool-custom';
     }
     return false;
   }

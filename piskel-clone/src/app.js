@@ -84,7 +84,6 @@ window.addEventListener('load', () => {
   const app = new App();
   app.start();
 
-
   function toggleOpenState() {
     const modalWindow = document.getElementById('modal-wrapper');
     modalWindow.classList.toggle('open');
@@ -100,4 +99,28 @@ window.addEventListener('load', () => {
     btn.addEventListener('click', toggleOpenState, false);
     btn.addEventListener('click', toggleBlurState, false);
   });
+
+  const btnDownload = document.getElementById('save_btn');
+  const canvasForSaving = document.getElementById('canvas-main');
+
+  function download(canvas, filename) {
+    const link = document.createElement('a');
+    let newEvent;
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png;base64');
+
+    if (document.createEvent) {
+      newEvent = document.createEvent('MouseEvents');
+      newEvent.initMouseEvent('click', true, true, window,
+        0, 0, 0, 0, 0, false, false, false,
+        false, 0, null);
+
+      link.dispatchEvent(newEvent);
+    } else if (link.fireEvent) {
+      link.fireEvent('onclick');
+    }
+  }
+  btnDownload.onclick = function save() {
+    download(canvasForSaving, 'myimage.png');
+  };
 });

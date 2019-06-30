@@ -75,6 +75,23 @@ export default class ImageCanvas {
     this.pixelStorage.setPixel(x - 1, y, currentPixelleft);
   }
 
+  customShape(x, y, currentColor) {
+    const pixelTopRight = this.pixelStorage.getPixel(x + 1, y + 1);
+    const pixelTopleft = this.pixelStorage.getPixel(x - 1, y + 1);
+    const pixelBottomRight = this.pixelStorage.getPixel(x + 1, y - 1);
+    const pixelBottomleft = this.pixelStorage.getPixel(x - 1, y - 1);
+
+    pixelTopRight.color = currentColor;
+    pixelTopleft.color = currentColor;
+    pixelBottomRight.color = currentColor;
+    pixelBottomleft.color = currentColor;
+
+    this.pixelStorage.setPixel(x + 1, y + 1, pixelTopRight);
+    this.pixelStorage.setPixel(x - 1, y + 1, pixelTopleft);
+    this.pixelStorage.setPixel(x + 1, y - 1, pixelBottomRight);
+    this.pixelStorage.setPixel(x - 1, y - 1, pixelBottomleft);
+  }
+
   drawLine(x0, y0, x1, y1, color) {
     let xStart = x0;
     let yStart = y0;
@@ -144,6 +161,8 @@ export default class ImageCanvas {
                 this.palette.setCurrentColor(currentPixel.color);
               } else if (curentTool === 'tool-paint-bucket') {
                 this.fillCanvas();
+              } else if (curentTool === 'tool-custom') {
+                this.customShape(x, y, currentColor);
               }
             }
           }
