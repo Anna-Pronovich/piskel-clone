@@ -3,7 +3,7 @@ export default class PixelStorage {
     this.pixels = [];
 
     this.canvasSize = canvasSize;
-    this.pixelsInWidth = this.canvasSize;
+    this.pixelsNumberInWidth = this.canvasSize;
     this.pixelsInHeight = this.canvasSize;
 
     this.pixelSize = zoom;
@@ -13,11 +13,11 @@ export default class PixelStorage {
   }
 
   setPixel(row, col, value) {
-    this.pixels[this.pixelsInWidth * row + col] = value;
+    this.pixels[this.pixelsNumberInWidth * row + col] = value;
   }
 
   getPixel(row, col) {
-    return this.pixels[this.pixelsInWidth * row + col];
+    return this.pixels[this.pixelsNumberInWidth * row + col];
   }
 
   getCanvasSize() {
@@ -38,7 +38,7 @@ export default class PixelStorage {
 
   reset() {
     for (let col = 1; col <= this.pixelsInHeight; col += 1) {
-      for (let row = 1; row <= this.pixelsInWidth; row += 1) {
+      for (let row = 1; row <= this.pixelsNumberInWidth; row += 1) {
         this.setPixel(
           row, col, {
             mouseOver: false,
